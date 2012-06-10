@@ -33,7 +33,8 @@ namespace MongoConsole
             };
 
             process.Start( );
-            Application.Run( new ConsoleForm( process.StandardOutput, process.StandardInput ) );
+            var session = new MongoSession( process );
+            Application.Run( new ConsoleForm( session ) );
         }
     }
 }

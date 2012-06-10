@@ -15,39 +15,31 @@ namespace MongoConsole
     /// </summary>
     public partial class ConsoleForm : Form
     {
-        private StreamReader input;
-        private StreamWriter output;
+        private MongoSession session;
 
-        public ConsoleForm( StreamReader input, StreamWriter output )
+        public ConsoleForm( MongoSession session )
         {
             InitializeComponent( );
 
-            this.input = input;
-            this.output = output;
-
-            var t = new Thread( InputInLoop );
-            t.IsBackground = true;
-            t.Start( );
+            this.session = session;
+            session.InputReceived += AddToLog;
         }
 
-        private void InputInLoop( )
+        private void AddToLog( string text )
         {
-            while ( true )
+            this.Invoke( (MethodInvoker) delegate
             {
-                string line = input.ReadLine( );
-                if ( !string.IsNullOrEmpty( line ) )
-                    this.Invoke( (MethodInvoker) delegate( ) { tbConsoleBox.Text += line + Environment.NewLine; } );
-                else
-                    Thread.Sleep( 5 );
-            }
+                tbConsoleBox.Text += text;
+            } );
         }
 
         private void tbInput_KeyUp( object sender, KeyEventArgs e )
         {
             if ( e.KeyCode == Keys.Enter )
             {
-                tbConsoleBox.Text += "> " + tbInput.Text + Environment.NewLine;
-                output.WriteLine( tbInput.Text + Environment.NewLine );
+                var command =  tbInput.Text + Environment.NewLine;
+                tbConsoleBox.Text += "> " + command;
+                session.Send( command );
                 tbInput.Text = "";
                 e.Handled = true;
                 e.SuppressKeyPress = true;
