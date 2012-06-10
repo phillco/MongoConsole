@@ -16,40 +16,15 @@ namespace MongoConsole.UI
     /// </summary>
     public partial class ConsoleForm : Form
     {
-        private MongoSession session;
-        private Interop.MongoSession session_2;
-
-        public ConsoleForm( MongoSession session )
+        public ConsoleForm()
         {
             InitializeComponent( );
-            this.session = session;
         }
 
-        private void ConsoleForm_Load( object sender, EventArgs e )
+        public void Add( MongoSession newSession )
         {
-            session.Client.InputReceived += AddToLog;
-            session.Start( );
-        }
-
-        private void AddToLog( string text )
-        {
-            this.Invoke( (MethodInvoker) delegate
-            {
-                tbConsoleBox.Text += text;
-            } );
-        }
-
-        private void tbInput_KeyUp( object sender, KeyEventArgs e )
-        {
-            if ( e.KeyCode == Keys.Enter )
-            {
-                var command =  tbInput.Text + Environment.NewLine;
-                tbConsoleBox.Text += "> " + command;
-                session.Client.Send( command );
-                tbInput.Text = "";
-                e.Handled = true;
-                e.SuppressKeyPress = true;
-            }
+            var pane = new SessionTab( newSession );
+            sessionTabs.TabPages.Add( pane.ToTabPage() );
         }
     }
 }
