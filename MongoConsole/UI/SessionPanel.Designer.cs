@@ -1,6 +1,6 @@
 ﻿namespace MongoConsole.UI
 {
-    partial class SessionTab
+    partial class SessionPanel
     {
         /// <summary> 
         /// Required designer variable.

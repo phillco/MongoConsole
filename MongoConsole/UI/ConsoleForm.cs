@@ -23,8 +23,8 @@ namespace MongoConsole.UI
 
         public void Add( MongoSession newSession )
         {
-            var pane = new SessionTab( newSession );
-            sessionTabs.TabPages.Add( pane.ToTabPage() );
+            var pane = new SessionPanel( newSession );
+            sessionTabs.TabPages.Add( pane.WrapInTabPage() );
         }
     }
 }

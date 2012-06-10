@@ -10,17 +10,23 @@ using MongoConsole.Interop;
 
 namespace MongoConsole.UI
 {
-    public partial class SessionTab : UserControl
+    /// <summary>
+    /// Represents ONE mongo administration session; provides a console, input box, etc.
+    /// </summary>
+    public partial class SessionPanel : UserControl
     {
         private MongoSession session;
 
-        public SessionTab( MongoSession session )
+        public SessionPanel( MongoSession session )
         {
             this.session = session;
             InitializeComponent( );
         }
 
-        public TabPage ToTabPage( )
+        /// <summary>
+        /// Wraps the panel in a TabPage, so it can easily be added to a tab control.
+        /// </summary>
+        public TabPage WrapInTabPage( )
         {
             var tab = new TabPage( "Local session" );
             tab.Controls.Add( this );
