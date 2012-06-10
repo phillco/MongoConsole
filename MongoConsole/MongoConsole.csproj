@@ -48,16 +48,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsoleForm.cs">
+    <Compile Include="UI\ConsoleForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ConsoleForm.Designer.cs">
+    <Compile Include="UI\ConsoleForm.Designer.cs">
       <DependentUpon>ConsoleForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MongoSession.cs" />
+    <Compile Include="Interop\MongoSession.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="ConsoleForm.resx">
+    <EmbeddedResource Include="UI\ConsoleForm.resx">
       <DependentUpon>ConsoleForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

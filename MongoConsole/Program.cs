@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using MongoDB.Driver;
 using System.Diagnostics;
+using MongoConsole.UI;
+using MongoConsole.Interop;
 
 namespace MongoConsole
 {

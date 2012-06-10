@@ -1,4 +1,4 @@
-﻿namespace MongoConsole
+﻿namespace MongoConsole.UI
 {
     partial class ConsoleForm
     {

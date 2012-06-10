@@ -7,15 +7,17 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Threading;
+using MongoConsole.Interop;
 
-namespace MongoConsole
+namespace MongoConsole.UI
 {
     /// <summary>
-    /// 
+    /// Shows the mongo console.
     /// </summary>
     public partial class ConsoleForm : Form
     {
         private MongoSession session;
+        private Interop.MongoSession session_2;
 
         public ConsoleForm( MongoSession session )
         {

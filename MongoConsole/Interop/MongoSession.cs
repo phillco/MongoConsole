@@ -7,7 +7,7 @@ using System.Threading;
 using System.Diagnostics;
 using MongoDB.Driver;
 
-namespace MongoConsole
+namespace MongoConsole.Interop
 {
     /// <summary>
     /// Represents a connection to a local mongo session.
