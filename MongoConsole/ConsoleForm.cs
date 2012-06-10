@@ -20,9 +20,13 @@ namespace MongoConsole
         public ConsoleForm( MongoSession session )
         {
             InitializeComponent( );
-
             this.session = session;
+        }
+
+        private void ConsoleForm_Load( object sender, EventArgs e )
+        {
             session.InputReceived += AddToLog;
+            session.Start( );
         }
 
         private void AddToLog( string text )

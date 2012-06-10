@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using System.Threading;
 using System.Diagnostics;
+using MongoDB.Driver;
 
 namespace MongoConsole
 {
@@ -32,6 +33,7 @@ namespace MongoConsole
         //
         //=================================================================================
 
+        private MongoServer server;
         private StreamReader input;
         private StreamWriter output;
 
@@ -49,11 +51,6 @@ namespace MongoConsole
         {
             this.input = input;
             this.output = output;
-
-            // Create the polling thread.
-            var thread = new Thread( InputThreadLoop );
-            thread.IsBackground = true;
-            thread.Start( );
         }
 
         //=================================================================================
@@ -61,6 +58,17 @@ namespace MongoConsole
         //  METHODS
         //
         //=================================================================================
+
+        public void Start( )
+        {
+            // Create the polling thread.
+            var thread = new Thread( InputThreadLoop );
+            thread.IsBackground = true;
+            thread.Start( );
+
+            server = MongoServer.Create( );
+            server.Ping( );
+        }
 
         /// <summary>
         /// Sends the given command to the console.
