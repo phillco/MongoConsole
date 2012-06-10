@@ -27,7 +27,7 @@ namespace MongoConsole.UI
 
         private void ConsoleForm_Load( object sender, EventArgs e )
         {
-            session.InputReceived += AddToLog;
+            session.Client.InputReceived += AddToLog;
             session.Start( );
         }
 
@@ -45,7 +45,7 @@ namespace MongoConsole.UI
             {
                 var command =  tbInput.Text + Environment.NewLine;
                 tbConsoleBox.Text += "> " + command;
-                session.Send( command );
+                session.Client.Send( command );
                 tbInput.Text = "";
                 e.Handled = true;
                 e.SuppressKeyPress = true;
