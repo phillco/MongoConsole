@@ -60,6 +60,7 @@ namespace MongoConsole.Interop
                 StartInfo = new ProcessStartInfo
                 {
                     FileName = "mongo.exe",
+                    Arguments = arguments,
                     ErrorDialog = false,
                     CreateNoWindow = true,
                     UseShellExecute = false,

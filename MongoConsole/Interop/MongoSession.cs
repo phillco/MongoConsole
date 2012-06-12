@@ -32,7 +32,7 @@ namespace MongoConsole.Interop
         public MongoSession( RemoteHost address )
         {
             this.Address = address;
-            Client = ProcessWrapper.Start( "mongo.exe", address.ToString() );
+            Client = ProcessWrapper.Start( "mongo.exe", address.EndPoint.ToString() );
             Server = MongoServer.Create( new MongoServerSettings { Server = new MongoServerAddress( address.HostName, address.EndPoint.Port ) } );
         }
 

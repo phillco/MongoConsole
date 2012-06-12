@@ -5,6 +5,7 @@ using System.Text;
 using System.Net;
 using System.Globalization;
 using MongoConsole.Interop;
+using System.Net.Sockets;
 
 namespace MongoConsole
 {
@@ -19,7 +20,11 @@ namespace MongoConsole
 
             // First resolve the DNS part of the address.
             IPHostEntry host = Dns.GetHostEntry( parts[0] );
+
             IPAddress address = host.AddressList[0];
+            foreach ( IPAddress a in host.AddressList )
+                if ( a.AddressFamily == AddressFamily.InterNetwork ) // Favor IPv4 (temporary, should run mongo.exe with --ipv6 instead)
+                    address = a;
 
             // (Optional) Parse the port.
             int port = defaultPort;
