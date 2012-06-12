@@ -18,7 +18,7 @@ namespace MongoConsole
             Application.SetCompatibleTextRenderingDefault( false );
 
             var form = new ConsoleForm( );
-            form.Add( new MongoSession( "localhost:10666" ) );
+            form.Add( new MongoSession( "localhost" ) );
             Application.Run( form );
         }
     }

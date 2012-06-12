@@ -15,11 +15,30 @@ namespace MongoConsole.Interop
     /// </summary>
     public class MongoSession
     {
+        public enum State { DISCONNECTED, CONNECTING, CONNECTED }
+
+        public State CurrentState
+        {
+            get { return currentState; }
+            private set
+            {
+                currentState = value;
+                if ( StateChanged != null )
+                    StateChanged( );
+            }
+        }
+
         public RemoteHost Address { get; private set; }
 
         public ProcessWrapper Client { get; private set; }
 
-        public MongoServer Server { get; private set; }
+        public MongoServer Server { get; private set; } 
+
+        public event VoidDelegate StateChanged;
+
+        public delegate void VoidDelegate( );
+
+        private State currentState = State.DISCONNECTED;
 
         public MongoSession( )
             : this( "localhost" )
@@ -32,14 +51,20 @@ namespace MongoConsole.Interop
         public MongoSession( RemoteHost address )
         {
             this.Address = address;
+            this.CurrentState = State.DISCONNECTED;
             Client = ProcessWrapper.Start( "mongo.exe", address.EndPoint.ToString() );
             Server = MongoServer.Create( new MongoServerSettings { Server = new MongoServerAddress( address.HostName, address.EndPoint.Port ) } );
         }
 
         public void Start( )
         {
-            Client.Start( );
-            Server.Ping( );
+            this.CurrentState = State.CONNECTING;
+            ThreadPool.QueueUserWorkItem( delegate
+            {
+                Client.Start( );
+                Server.Ping( );
+                this.CurrentState = State.CONNECTED;
+            } );
         }
     }
 }

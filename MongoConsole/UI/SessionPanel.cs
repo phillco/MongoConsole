@@ -23,6 +23,16 @@ namespace MongoConsole.UI
             InitializeComponent( );
         }
 
+        private void SessionTab_Load( object sender, EventArgs e )
+        {
+            session.StateChanged += UpdateState;
+            session.Client.InputReceived += AddToLog;
+            session.Start( );
+
+            UpdateState( );
+        }
+
+
         /// <summary>
         /// Wraps the panel in a TabPage, so it can easily be added to a tab control.
         /// </summary>
@@ -34,10 +44,21 @@ namespace MongoConsole.UI
             return tab;
         }
 
-        private void SessionTab_Load( object sender, EventArgs e )
+        public void UpdateState( )
         {
-            session.Client.InputReceived += AddToLog;
-            session.Start( );
+            if ( this.InvokeRequired )
+            {
+                this.Invoke( (MethodInvoker) UpdateState );
+                return;
+            }
+
+            if ( session.CurrentState == MongoSession.State.CONNECTING )
+            {
+                statusPanel.Show( );
+                lblStatusHeader.Text = "Connecting...";
+            }
+            else
+                statusPanel.Hide( );
         }
 
         private void AddToLog( string text )
@@ -59,6 +80,11 @@ namespace MongoConsole.UI
                 e.Handled = true;
                 e.SuppressKeyPress = true;
             }
+        }
+
+        private void SessionPanel_Resize( object sender, EventArgs e )
+        {
+            statusInsidePanel.Left = Width / 2 - statusInsidePanel.Width / 2;
         }
     }
 }
