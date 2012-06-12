@@ -28,10 +28,12 @@
         /// </summary>
         private void InitializeComponent( )
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConsoleForm));
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.sessionTabs = new System.Windows.Forms.TabControl();
+            this.sessionsStatusImages = new System.Windows.Forms.ImageList(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -59,11 +61,20 @@
             // sessionTabs
             // 
             this.sessionTabs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sessionTabs.ImageList = this.sessionsStatusImages;
             this.sessionTabs.Location = new System.Drawing.Point(0, 79);
             this.sessionTabs.Name = "sessionTabs";
             this.sessionTabs.SelectedIndex = 0;
             this.sessionTabs.Size = new System.Drawing.Size(750, 390);
             this.sessionTabs.TabIndex = 1;
+            // 
+            // sessionsStatusImages
+            // 
+            this.sessionsStatusImages.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("sessionsStatusImages.ImageStream")));
+            this.sessionsStatusImages.TransparentColor = System.Drawing.Color.Transparent;
+            this.sessionsStatusImages.Images.SetKeyName(0, "status-offline.png");
+            this.sessionsStatusImages.Images.SetKeyName(1, "status-away.png");
+            this.sessionsStatusImages.Images.SetKeyName(2, "status.png");
             // 
             // ConsoleForm
             // 
@@ -86,6 +97,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TabControl sessionTabs;
+        private System.Windows.Forms.ImageList sessionsStatusImages;
     }
 }
 

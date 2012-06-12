@@ -15,11 +15,29 @@ namespace MongoConsole.UI
     /// </summary>
     public partial class SessionPanel : UserControl
     {
+        public TabPage TabPage
+        {
+            get
+            {
+                if ( tab == null )
+                {
+                    tab = new TabPage( session.Address.HostName );
+                    tab.ImageIndex = (int) session.CurrentState;
+                    tab.Controls.Add( this );
+                }
+
+                return tab;
+            }
+        }
+
         private MongoSession session;
+
+        private TabPage tab;
 
         public SessionPanel( MongoSession session )
         {
             this.session = session;
+            Dock = DockStyle.Fill;
             InitializeComponent( );
         }
 
@@ -32,18 +50,6 @@ namespace MongoConsole.UI
             UpdateState( );
         }
 
-
-        /// <summary>
-        /// Wraps the panel in a TabPage, so it can easily be added to a tab control.
-        /// </summary>
-        public TabPage WrapInTabPage( )
-        {
-            var tab = new TabPage( session.Address.HostName );
-            tab.Controls.Add( this );
-            Dock = DockStyle.Fill;
-            return tab;
-        }
-
         public void UpdateState( )
         {
             if ( this.InvokeRequired )
@@ -52,6 +58,7 @@ namespace MongoConsole.UI
                 return;
             }
 
+            tab.ImageIndex = (int) session.CurrentState;
             if ( session.CurrentState == MongoSession.State.CONNECTING )
             {
                 statusPanel.Show( );

@@ -32,8 +32,8 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.tbInput = new System.Windows.Forms.TextBox();
             this.statusInsidePanel = new System.Windows.Forms.Panel();
-            this.lblStatusHeader = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.lblStatusHeader = new System.Windows.Forms.Label();
             this.statusPanel = new System.Windows.Forms.Panel();
             this.panel2.SuspendLayout();
             this.statusInsidePanel.SuspendLayout();
@@ -82,6 +82,15 @@
             this.statusInsidePanel.Size = new System.Drawing.Size(271, 111);
             this.statusInsidePanel.TabIndex = 4;
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(52, 50);
+            this.progressBar1.MarqueeAnimationSpeed = 25;
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(118, 23);
+            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.progressBar1.TabIndex = 2;
+            // 
             // lblStatusHeader
             // 
             this.lblStatusHeader.AutoSize = true;
@@ -91,15 +100,6 @@
             this.lblStatusHeader.Size = new System.Drawing.Size(59, 19);
             this.lblStatusHeader.TabIndex = 0;
             this.lblStatusHeader.Text = "label1";
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(52, 50);
-            this.progressBar1.MarqueeAnimationSpeed = 25;
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(118, 23);
-            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.progressBar1.TabIndex = 2;
             // 
             // statusPanel
             // 

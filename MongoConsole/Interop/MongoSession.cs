@@ -7,6 +7,7 @@ using System.Threading;
 using System.Diagnostics;
 using MongoDB.Driver;
 using System.Net;
+using System.Net.Sockets;
 
 namespace MongoConsole.Interop
 {
@@ -62,8 +63,15 @@ namespace MongoConsole.Interop
             ThreadPool.QueueUserWorkItem( delegate
             {
                 Client.Start( );
-                Server.Ping( );
-                this.CurrentState = State.CONNECTED;
+                try
+                {
+                    Server.Ping( );
+                    this.CurrentState = State.CONNECTED;
+                }
+                catch ( SocketException )
+                {
+                    this.CurrentState = State.DISCONNECTED;
+                }
             } );
         }
     }
