@@ -14,9 +14,9 @@ namespace MongoConsole.UI
     /// <summary>
     /// Shows the mongo console.
     /// </summary>
-    public partial class ConsoleForm : Form
+    public partial class MainForm : Form
     {
-        public ConsoleForm()
+        public MainForm()
         {
             InitializeComponent( );
         }
