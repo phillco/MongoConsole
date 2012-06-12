@@ -28,7 +28,7 @@ namespace MongoConsole.UI
         /// </summary>
         public TabPage WrapInTabPage( )
         {
-            var tab = new TabPage( "Local session" );
+            var tab = new TabPage( session.Address.HostName );
             tab.Controls.Add( this );
             Dock = DockStyle.Fill;
             return tab;

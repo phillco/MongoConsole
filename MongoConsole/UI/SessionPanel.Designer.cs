@@ -65,13 +65,13 @@
             this.tbInput.TabIndex = 0;
             this.tbInput.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbInput_KeyUp);
             // 
-            // SessionTab
+            // SessionPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.tbConsoleBox);
-            this.Name = "SessionTab";
+            this.Name = "SessionPanel";
             this.Size = new System.Drawing.Size(468, 296);
             this.Load += new System.EventHandler(this.SessionTab_Load);
             this.panel2.ResumeLayout(false);

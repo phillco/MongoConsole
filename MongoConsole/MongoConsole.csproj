@@ -48,7 +48,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
     <Compile Include="Interop\ProcessWrapper.cs" />
+    <Compile Include="Interop\RemoteHost.cs" />
     <Compile Include="UI\ConsoleForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -58,12 +60,13 @@
     <Compile Include="Interop\MongoSession.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\SessionTab.cs">
-      <SubType>Component</SubType>
+    <Compile Include="UI\SessionPanel.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\SessionTab.Designer.cs">
-      <DependentUpon>SessionTab.cs</DependentUpon>
+    <Compile Include="UI\SessionPanel.Designer.cs">
+      <DependentUpon>SessionPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Util.cs" />
     <EmbeddedResource Include="UI\ConsoleForm.resx">
       <DependentUpon>ConsoleForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -77,8 +80,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="UI\SessionTab.resx">
-      <DependentUpon>SessionTab.cs</DependentUpon>
+    <EmbeddedResource Include="UI\SessionPanel.resx">
+      <DependentUpon>SessionPanel.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
