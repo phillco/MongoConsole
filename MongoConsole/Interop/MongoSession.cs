@@ -74,5 +74,12 @@ namespace MongoConsole.Interop
                 }
             } );
         }
+
+        public void Stop( )
+        {
+            this.CurrentState = State.DISCONNECTED;
+            Server.Disconnect( );
+            Client.Stop( );
+        }
     }
 }

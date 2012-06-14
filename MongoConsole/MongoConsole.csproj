@@ -51,11 +51,11 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Interop\ProcessWrapper.cs" />
     <Compile Include="Interop\RemoteHost.cs" />
-    <Compile Include="UI\ConsoleForm.cs">
+    <Compile Include="UI\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\ConsoleForm.Designer.cs">
-      <DependentUpon>ConsoleForm.cs</DependentUpon>
+    <Compile Include="UI\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Interop\MongoSession.cs" />
     <Compile Include="Program.cs" />
@@ -67,8 +67,8 @@
       <DependentUpon>SessionPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Util.cs" />
-    <EmbeddedResource Include="UI\ConsoleForm.resx">
-      <DependentUpon>ConsoleForm.cs</DependentUpon>
+    <EmbeddedResource Include="UI\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

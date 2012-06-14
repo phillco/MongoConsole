@@ -21,8 +21,9 @@ namespace MongoConsole.UI
             {
                 if ( tab == null )
                 {
-                    tab = new TabPage( session.Address.HostName );
-                    tab.ImageIndex = (int) session.CurrentState;
+                    tab = new TabPage( Session.Address.HostName );
+                    tab.ImageIndex = (int) Session.CurrentState;
+                    tab.Tag = this;
                     tab.Controls.Add( this );
                 }
 
@@ -30,22 +31,22 @@ namespace MongoConsole.UI
             }
         }
 
-        private MongoSession session;
+        public MongoSession Session { get; private set; }
 
         private TabPage tab;
 
         public SessionPanel( MongoSession session )
         {
-            this.session = session;
+            this.Session = session;
             Dock = DockStyle.Fill;
             InitializeComponent( );
         }
 
         private void SessionTab_Load( object sender, EventArgs e )
         {
-            session.StateChanged += UpdateState;
-            session.Client.InputReceived += AddToLog;
-            session.Start( );
+            Session.StateChanged += UpdateState;
+            Session.Client.InputReceived += AddToLog;
+            Session.Start( );
 
             UpdateState( );
         }
@@ -58,8 +59,8 @@ namespace MongoConsole.UI
                 return;
             }
 
-            tab.ImageIndex = (int) session.CurrentState;
-            if ( session.CurrentState == MongoSession.State.CONNECTING )
+            tab.ImageIndex = (int) Session.CurrentState;
+            if ( Session.CurrentState == MongoSession.State.CONNECTING )
             {
                 statusPanel.Show( );
                 lblStatusHeader.Text = "Connecting...";
@@ -82,7 +83,7 @@ namespace MongoConsole.UI
             {
                 var command = tbInput.Text + Environment.NewLine;
                 tbConsoleBox.Text += "> " + command;
-                session.Client.Send( command );
+                Session.Client.Send( command );
                 tbInput.Text = "";
                 e.Handled = true;
                 e.SuppressKeyPress = true;

@@ -34,8 +34,12 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.sessionTabs = new System.Windows.Forms.TabControl();
             this.sessionsStatusImages = new System.Windows.Forms.ImageList(this.components);
+            this.tabContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cloneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.tabContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -76,7 +80,28 @@
             this.sessionsStatusImages.Images.SetKeyName(1, "status-away.png");
             this.sessionsStatusImages.Images.SetKeyName(2, "status.png");
             // 
-            // ConsoleForm
+            // tabContextMenu
+            // 
+            this.tabContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cloneToolStripMenuItem,
+            this.closeToolStripMenuItem});
+            this.tabContextMenu.Name = "tabContextMenu";
+            this.tabContextMenu.Size = new System.Drawing.Size(153, 70);
+            // 
+            // cloneToolStripMenuItem
+            // 
+            this.cloneToolStripMenuItem.Name = "cloneToolStripMenuItem";
+            this.cloneToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cloneToolStripMenuItem.Text = "Clone session";
+            // 
+            // closeToolStripMenuItem
+            // 
+            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.closeToolStripMenuItem.Text = "Close";
+            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -84,10 +109,11 @@
             this.Controls.Add(this.sessionTabs);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Name = "ConsoleForm";
+            this.Name = "MainForm";
             this.Text = "MongoDB console";
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.tabContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -98,6 +124,9 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TabControl sessionTabs;
         private System.Windows.Forms.ImageList sessionsStatusImages;
+        private System.Windows.Forms.ContextMenuStrip tabContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem cloneToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
     }
 }
 

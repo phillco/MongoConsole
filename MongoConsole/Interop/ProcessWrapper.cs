@@ -30,6 +30,7 @@ namespace MongoConsole.Interop
         //
         //=================================================================================
 
+        private Process process;
         private StreamReader input;
         private StreamWriter output;
 
@@ -45,6 +46,7 @@ namespace MongoConsole.Interop
         public ProcessWrapper( Process process )
         {   
             process.Start( );
+            this.process = process;
             this.input = process.StandardOutput;
             this.output = process.StandardInput;
         }
@@ -97,11 +99,19 @@ namespace MongoConsole.Interop
         }
 
         /// <summary>
+        /// Stops the process.
+        /// </summary>
+        public void Stop( )
+        {
+            process.Kill( );
+        }
+
+        /// <summary>
         /// Loops forever, polling for input.
         /// </summary>
         private void InputThreadLoop( )
         {
-            while ( true )
+            while ( !process.HasExited )
             {
                 string line = input.ReadLine( ); // Does not block; returns null if no input.
                 if ( !string.IsNullOrEmpty( line ) )

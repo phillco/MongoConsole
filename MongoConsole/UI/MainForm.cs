@@ -19,12 +19,50 @@ namespace MongoConsole.UI
         public MainForm()
         {
             InitializeComponent( );
+            sessionTabs.MouseClick += new MouseEventHandler( sessionTabs_MouseClick );
+        }
+
+        void sessionTabs_MouseClick( object sender, MouseEventArgs e )
+        {
+            if ( e.Button == MouseButtons.Right )
+            {
+                TabPage tab = GetSelectedTabIndex( e.Location );
+                if ( tab != null )
+                {
+                    tabContextMenu.Tag = tab;
+                    tabContextMenu.Show( sessionTabs, e.Location );
+                }
+            }
         }
 
         public void Add( MongoSession newSession )
         {
             var pane = new SessionPanel( newSession );
             sessionTabs.TabPages.Add( pane.TabPage );
+        }
+
+        /// <summary>
+        /// Finds which tab was clicked at the specific point.
+        /// </summary>
+        private TabPage GetSelectedTabIndex( Point clickLocation )
+        {
+            for ( int i = 0; i < sessionTabs.TabCount; i++ )
+            {
+                // Does the tab area contain the mouse pointer?
+                Rectangle r = sessionTabs.GetTabRect( i );
+                if ( r.Contains( clickLocation ) )
+                    return sessionTabs.TabPages[i];
+            }
+
+            return null;
+        }
+
+        private void closeToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            var tab = (TabPage) tabContextMenu.Tag;
+            var session = ( (SessionPanel) tab.Tag ).Session;
+            session.Stop( );
+            sessionTabs.TabPages.Remove( tab );
         }
     }
 }
