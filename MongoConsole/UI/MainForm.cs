@@ -73,5 +73,15 @@ namespace MongoConsole.UI
 
             Add( new MongoSession( session.Address ) );
         }
+
+        private void exitToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            Application.Exit( );
+        }
+
+        private void aboutToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            new AboutForm( ).ShowDialog( this );
+        }
     }
 }
