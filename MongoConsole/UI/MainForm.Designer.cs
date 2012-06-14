@@ -93,6 +93,7 @@
             this.cloneToolStripMenuItem.Name = "cloneToolStripMenuItem";
             this.cloneToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.cloneToolStripMenuItem.Text = "Clone session";
+            this.cloneToolStripMenuItem.Click += new System.EventHandler(this.cloneToolStripMenuItem_Click);
             // 
             // closeToolStripMenuItem
             // 

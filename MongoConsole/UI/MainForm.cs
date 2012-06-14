@@ -39,6 +39,7 @@ namespace MongoConsole.UI
         {
             var pane = new SessionPanel( newSession );
             sessionTabs.TabPages.Add( pane.TabPage );
+            sessionTabs.SelectTab( pane.TabPage );
         }
 
         /// <summary>
@@ -63,6 +64,14 @@ namespace MongoConsole.UI
             var session = ( (SessionPanel) tab.Tag ).Session;
             session.Stop( );
             sessionTabs.TabPages.Remove( tab );
+        }
+
+        private void cloneToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            var tab = (TabPage) tabContextMenu.Tag;
+            var session = ( (SessionPanel) tab.Tag ).Session;
+
+            Add( new MongoSession( session.Address ) );
         }
     }
 }
