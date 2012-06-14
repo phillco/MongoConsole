@@ -77,7 +77,7 @@ namespace MongoConsole.Interop
 
         //=================================================================================
         //
-        //  METHODS
+        //  PUBLIC METHODS
         //
         //=================================================================================
 
@@ -106,11 +106,24 @@ namespace MongoConsole.Interop
             process.Kill( );
         }
 
+        public override string ToString( )
+        {
+            return "mongo.exe PID#" + process.Id;
+        }
+
+        //=================================================================================
+        //
+        //  PRIVATE METHODS
+        //
+        //=================================================================================
+
         /// <summary>
         /// Loops forever, polling for input.
         /// </summary>
         private void InputThreadLoop( )
         {
+            Thread.CurrentThread.Name = ( this + " input thread" );
+
             while ( !process.HasExited )
             {
                 string line = input.ReadLine( ); // Does not block; returns null if no input.
