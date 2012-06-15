@@ -20,6 +20,8 @@ namespace MongoConsole.UI
         {
             InitializeComponent( );
             sessionTabs.MouseClick += new MouseEventHandler( sessionTabs_MouseClick );
+            newSessionSplitButton.Click += newToolStripMenuItem_Click;
+            cloneCurrentSessionToolStripMenuItem1.Click += cloneCurrentSessionToolStripMenuItem_Click;
         }
 
         void sessionTabs_MouseClick( object sender, MouseEventArgs e )
