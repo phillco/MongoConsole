@@ -103,7 +103,11 @@ namespace MongoConsole.Interop
         /// </summary>
         public void Stop( )
         {
-            process.Kill( );
+            try
+            {
+                process.Kill( );
+            }
+            catch ( InvalidOperationException ) { }
         }
 
         public override string ToString( )
