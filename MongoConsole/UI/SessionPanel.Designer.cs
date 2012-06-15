@@ -77,29 +77,29 @@
             this.statusInsidePanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.statusInsidePanel.Controls.Add(this.progressBar1);
             this.statusInsidePanel.Controls.Add(this.lblStatusHeader);
-            this.statusInsidePanel.Location = new System.Drawing.Point(89, 65);
+            this.statusInsidePanel.Location = new System.Drawing.Point(96, 76);
             this.statusInsidePanel.Name = "statusInsidePanel";
-            this.statusInsidePanel.Size = new System.Drawing.Size(271, 111);
+            this.statusInsidePanel.Size = new System.Drawing.Size(247, 85);
             this.statusInsidePanel.TabIndex = 4;
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(52, 50);
+            this.progressBar1.Location = new System.Drawing.Point(51, 42);
             this.progressBar1.MarqueeAnimationSpeed = 25;
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(118, 23);
+            this.progressBar1.Size = new System.Drawing.Size(118, 14);
             this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.progressBar1.TabIndex = 2;
             // 
             // lblStatusHeader
             // 
             this.lblStatusHeader.AutoSize = true;
-            this.lblStatusHeader.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStatusHeader.Location = new System.Drawing.Point(48, 24);
+            this.lblStatusHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStatusHeader.Location = new System.Drawing.Point(48, 21);
             this.lblStatusHeader.Name = "lblStatusHeader";
-            this.lblStatusHeader.Size = new System.Drawing.Size(59, 19);
+            this.lblStatusHeader.Size = new System.Drawing.Size(92, 16);
             this.lblStatusHeader.TabIndex = 0;
-            this.lblStatusHeader.Text = "label1";
+            this.lblStatusHeader.Text = "Connecting...";
             // 
             // statusPanel
             // 
