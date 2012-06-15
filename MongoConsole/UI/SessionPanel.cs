@@ -11,33 +11,18 @@ using MongoConsole.Interop;
 namespace MongoConsole.UI
 {
     /// <summary>
-    /// Represents ONE mongo administration session; provides a console, input box, etc.
+    /// The actual mongo administration panel (for one session) with the console, input box, etc.
+    /// Contained by a SessionTab. (Why not merge them? Because then you lose the form editor).
     /// </summary>
     public partial class SessionPanel : UserControl
     {
-        public TabPage TabPage
+        public MongoSession Session { get { return ParentTab.Session; } }
+
+        private SessionTab ParentTab;
+
+        public SessionPanel( SessionTab parent )
         {
-            get
-            {
-                if ( tab == null )
-                {
-                    tab = new TabPage( Session.Address.HostName );
-                    tab.ImageIndex = (int) Session.CurrentState;
-                    tab.Tag = this;
-                    tab.Controls.Add( this );
-                }
-
-                return tab;
-            }
-        }
-
-        public MongoSession Session { get; private set; }
-
-        private TabPage tab;
-
-        public SessionPanel( MongoSession session )
-        {
-            this.Session = session;
+            ParentTab = parent;
             Dock = DockStyle.Fill;
             InitializeComponent( );
         }
@@ -59,7 +44,7 @@ namespace MongoConsole.UI
                 return;
             }
 
-            tab.ImageIndex = (int) Session.CurrentState;
+            ParentTab.ImageIndex = (int) Session.CurrentState;
             if ( Session.CurrentState == MongoSession.State.CONNECTING )
             {
                 statusPanel.Show( );

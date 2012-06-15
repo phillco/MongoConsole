@@ -78,6 +78,9 @@
     <Compile Include="UI\SessionPanel.Designer.cs">
       <DependentUpon>SessionPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\SessionTab.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Util.cs" />
     <EmbeddedResource Include="UI\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>

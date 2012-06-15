@@ -39,22 +39,20 @@ namespace MongoConsole.UI
 
         public void Add( MongoSession newSession )
         {
-            var pane = new SessionPanel( newSession );
-            sessionTabs.TabPages.Add( pane.TabPage );
-            sessionTabs.SelectTab( pane.TabPage );
+            var tab = new SessionTab( newSession );
+            sessionTabs.TabPages.Add( tab );
+            sessionTabs.SelectTab( (TabPage) tab );
         }
 
-        public void CloseTab( TabPage tab )
+        public void CloseTab( SessionTab tab )
         {
-            var session = ( (SessionPanel) tab.Tag ).Session;
-            session.Stop( );
+            tab.Session.Stop( );
             sessionTabs.TabPages.Remove( tab );
         }
 
-        public void Clone( TabPage tab )
+        public void Clone( SessionTab tab )
         {
-            var session = ( (SessionPanel) tab.Tag ).Session;
-            Add( new MongoSession( session.Address ) );
+            Add( new MongoSession( tab.Session.Address ) );
         }
 
         /// <summary>
@@ -75,12 +73,12 @@ namespace MongoConsole.UI
 
         private void closeToolStripMenuItem_Click( object sender, EventArgs e )
         {
-            CloseTab( (TabPage) tabContextMenu.Tag );
+            CloseTab( (SessionTab) tabContextMenu.Tag );
         }
 
         private void cloneToolStripMenuItem_Click( object sender, EventArgs e )
         {
-            Clone( (TabPage) tabContextMenu.Tag );
+            Clone( (SessionTab) tabContextMenu.Tag );
         }
 
         private void exitToolStripMenuItem_Click( object sender, EventArgs e )
@@ -95,7 +93,7 @@ namespace MongoConsole.UI
 
         private void cloneCurrentSessionToolStripMenuItem_Click( object sender, EventArgs e )
         {
-            Clone( sessionTabs.SelectedTab );
+            Clone( (SessionTab) sessionTabs.SelectedTab );
         }
 
         private void newToolStripMenuItem_Click( object sender, EventArgs e )
