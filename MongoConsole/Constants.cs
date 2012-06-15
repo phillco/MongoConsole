@@ -11,6 +11,6 @@ namespace MongoConsole
     class Constants
     {
         /// <summary>The default port that mongod listens on.</summary>
-        const int DefaultMongoServerPort = 27017;
+        public const int DefaultMongoServerPort = 27017;
     }
 }

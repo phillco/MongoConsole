@@ -81,5 +81,13 @@ namespace MongoConsole.Interop
             Server.Disconnect( );
             Client.Stop( );
         }
+
+        public override string ToString( )
+        {
+            if ( Address.EndPoint.Port == Constants.DefaultMongoServerPort )
+                return Address.HostName;
+            else
+                return Address.HostName + ":" + Address.EndPoint.Port;
+        }
     }
 }
