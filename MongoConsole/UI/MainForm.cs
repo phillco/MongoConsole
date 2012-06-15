@@ -95,5 +95,12 @@ namespace MongoConsole.UI
         {
             Clone( sessionTabs.SelectedTab );
         }
+
+        private void newToolStripMenuItem_Click( object sender, EventArgs e )
+        {
+            var address = NewSessionForm.ShowAndGetAddress( this );
+            if ( !string.IsNullOrEmpty( address ) )
+                Add( new MongoSession( address ) );
+        }
     }
 }

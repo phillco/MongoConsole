@@ -36,12 +36,12 @@
             this.sessionTabs = new System.Windows.Forms.TabControl();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cloneCurrentSessionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cloneCurrentSessionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cloneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabContextMenu.SuspendLayout();
@@ -107,14 +107,6 @@
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
-            // cloneCurrentSessionToolStripMenuItem
-            // 
-            this.cloneCurrentSessionToolStripMenuItem.Image = global::MongoConsole.Properties.Resources.document_copy;
-            this.cloneCurrentSessionToolStripMenuItem.Name = "cloneCurrentSessionToolStripMenuItem";
-            this.cloneCurrentSessionToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.cloneCurrentSessionToolStripMenuItem.Text = "&Clone current session";
-            this.cloneCurrentSessionToolStripMenuItem.Click += new System.EventHandler(this.cloneCurrentSessionToolStripMenuItem_Click);
-            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
@@ -150,12 +142,21 @@
             this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             this.newToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.newToolStripMenuItem.Text = "&New session...";
+            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
+            // 
+            // cloneCurrentSessionToolStripMenuItem
+            // 
+            this.cloneCurrentSessionToolStripMenuItem.Image = global::MongoConsole.Properties.Resources.document_copy;
+            this.cloneCurrentSessionToolStripMenuItem.Name = "cloneCurrentSessionToolStripMenuItem";
+            this.cloneCurrentSessionToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.cloneCurrentSessionToolStripMenuItem.Text = "&Clone current session";
+            this.cloneCurrentSessionToolStripMenuItem.Click += new System.EventHandler(this.cloneCurrentSessionToolStripMenuItem_Click);
             // 
             // cloneToolStripMenuItem
             // 
             this.cloneToolStripMenuItem.Image = global::MongoConsole.Properties.Resources.document_copy;
             this.cloneToolStripMenuItem.Name = "cloneToolStripMenuItem";
-            this.cloneToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cloneToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.cloneToolStripMenuItem.Text = "Clone session";
             this.cloneToolStripMenuItem.Click += new System.EventHandler(this.cloneToolStripMenuItem_Click);
             // 
@@ -163,7 +164,7 @@
             // 
             this.closeToolStripMenuItem.Image = global::MongoConsole.Properties.Resources.cross_octagon;
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
