@@ -50,7 +50,7 @@ namespace MongoConsole.UI.Component
 
         public void ScrollHistoryUp( )
         {
-            if ( PositionInHistory + 1 < History.Count )
+            if ( PositionInHistory < History.Count - 1 )
             {
                 // Back up the unsubmitted command before scrolling.
                 if ( PositionInHistory == 0 )
@@ -72,10 +72,19 @@ namespace MongoConsole.UI.Component
                 Text = History[PositionInHistory];
                 Select( Text.Length, 0 );
             }
-            else if ( PositionInHistory == 0 )
+            else
             {
-                PositionInHistory--; // Now -1
-                Text = "";
+                // Potentially allow the user to scroll down to -1 if they are on level 0.
+                // This is an easy way to save your work and get a fresh prompt.
+                if ( PositionInHistory == 0 && !string.IsNullOrEmpty( Text ) )
+                {
+                    // Back up the unsubmitted command before scrolling.
+                    if ( PositionInHistory == 0 )
+                        History[0] = Text;
+
+                    Text = "";
+                    PositionInHistory = -1;
+                }
             }
 
             Trace.WriteLine( "At: " + PositionInHistory );
