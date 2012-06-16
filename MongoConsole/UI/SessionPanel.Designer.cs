@@ -1,4 +1,5 @@
-﻿namespace MongoConsole.UI
+﻿using MongoConsole.UI.Component;
+namespace MongoConsole.UI
 {
     partial class SessionPanel
     {
@@ -30,7 +31,7 @@
         {
             this.tbConsoleBox = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.tbInput = new System.Windows.Forms.TextBox();
+            this.tbInput = new MongoConsole.UI.Component.HistoryTextBox();
             this.statusInsidePanel = new System.Windows.Forms.Panel();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.lblStatusHeader = new System.Windows.Forms.Label();
@@ -137,7 +138,7 @@
 
         private System.Windows.Forms.TextBox tbConsoleBox;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.TextBox tbInput;
+        private HistoryTextBox tbInput;
         private System.Windows.Forms.Panel statusInsidePanel;
         private System.Windows.Forms.Label lblStatusHeader;
         private System.Windows.Forms.ProgressBar progressBar1;

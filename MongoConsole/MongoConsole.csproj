@@ -57,6 +57,9 @@
     <Compile Include="UI\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Component\HistoryTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,6 +87,9 @@
     <Compile Include="Util.cs" />
     <EmbeddedResource Include="UI\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Component\HistoryTextBox.resx">
+      <DependentUpon>HistoryTextBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

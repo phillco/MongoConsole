@@ -32,7 +32,6 @@ namespace MongoConsole.UI
             Session.StateChanged += UpdateState;
             Session.Client.InputReceived += AddToLog;
             Session.Start( );
-
             UpdateState( );
         }
 
@@ -62,17 +61,34 @@ namespace MongoConsole.UI
             } );
         }
 
+        private void SubmitCommand( )
+        {
+            SubmitCommand( tbInput.Text + Environment.NewLine );
+            tbInput.Text = "";
+            //SavedCommand = "";
+        }
+
+        private void SubmitCommand( string command )
+        {
+            //CommandHistory.AddFirst( command );
+            //CurrentCommandHistory = CommandHistory.First;
+            tbConsoleBox.Text += "> " + command;
+            Session.Client.Send( command );
+        }
+
+
         private void tbInput_KeyUp( object sender, KeyEventArgs e )
         {
             if ( e.KeyCode == Keys.Enter )
             {
-                var command = tbInput.Text + Environment.NewLine;
-                tbConsoleBox.Text += "> " + command;
-                Session.Client.Send( command );
-                tbInput.Text = "";
+                SubmitCommand( );
                 e.Handled = true;
                 e.SuppressKeyPress = true;
             }
+            //else if ( e.KeyCode == Keys.Up )
+            //    ScrollHistory( true );
+            //else
+            //    ScrollHistory( false );
         }
 
         private void SessionPanel_Resize( object sender, EventArgs e )
