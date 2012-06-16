@@ -13,6 +13,23 @@ namespace MongoConsole.UI.Component
     /// </summary>
     class HistoryTextBox : TextBox
     {
+        //=================================================================================
+        //
+        //  EVENTS
+        //
+        //=================================================================================
+
+        /// <summary>Occurs when a new command has been submitted with the "Enter" key.</summary>
+        public event SubmitDelegate Submitted;
+
+        public delegate void SubmitDelegate( string text );
+
+        //=================================================================================
+        //
+        //  PRIVATE VARIABLES
+        //
+        //=================================================================================
+
         /// <summary>
         /// The actual history of commands. Most recent commands are at the front; oldest ones at the end.
         /// Position 0 is reserved for scratch.
@@ -24,30 +41,27 @@ namespace MongoConsole.UI.Component
         /// </summary>
         private int PositionInHistory = 0;
 
+        //=================================================================================
+        //
+        //  CONSTRUCTORS
+        //
+        //=================================================================================
+
         public HistoryTextBox( )
         {
-            History = new string[] { "", "one", "two", "three", "four" }.ToList( );
+            History.Insert( 0, "" );
             this.KeyDown += HistoryTextBox_KeyUp;
         }
 
-        private void HistoryTextBox_KeyUp( object sender, KeyEventArgs e )
-        {
-            switch ( e.KeyCode )
-            {
-                case Keys.Up:
-                    ScrollHistoryUp( );
-                    e.SuppressKeyPress = true;
-                    break;
-                case Keys.Down:
-                    ScrollHistoryDown( );
-                    e.SuppressKeyPress = true;
-                    break;
-                case Keys.Enter:
-                    Submit( Text );
-                    break;
-            }
-        }
-
+        //=================================================================================
+        //
+        //  PUBLIC METHODS
+        //
+        //=================================================================================
+        
+        /// <summary>
+        /// Scrolls the history "up" towards older commands (forward through the History[] array).
+        /// </summary>
         public void ScrollHistoryUp( )
         {
             if ( PositionInHistory < History.Count - 1 )
@@ -64,6 +78,9 @@ namespace MongoConsole.UI.Component
             Trace.WriteLine( "At: " + PositionInHistory );
         }
 
+        /// <summary>
+        /// Scrolls the history "down" towards newer commands (backwards through the History[] array).
+        /// </summary>
         public void ScrollHistoryDown( )
         {
             if ( PositionInHistory > 0 )
@@ -90,14 +107,47 @@ namespace MongoConsole.UI.Component
             Trace.WriteLine( "At: " + PositionInHistory );
         }
 
+        /// <summary>
+        /// Submits the given command to the history. (Also fires Submitted).
+        /// </summary>
         public void Submit( string text )
         {
+            // Back up the scratch command first.
             if ( !string.IsNullOrEmpty( History[0] ) )
                 History.Insert( 1, History[0] );
 
             History.Insert( 1, text );
             PositionInHistory = 0;
-            History[0] = "";
+            Text = "";
+            History[0] = ""; // Wipe scratch.
+
+            if ( Submitted != null )
+                Submitted( text );
+        }
+
+        //=================================================================================
+        //
+        //  PRIVATE METHODS
+        //
+        //=================================================================================
+
+        private void HistoryTextBox_KeyUp( object sender, KeyEventArgs e )
+        {
+            switch ( e.KeyCode )
+            {
+                case Keys.Up:
+                    ScrollHistoryUp( );
+                    e.SuppressKeyPress = true;
+                    break;
+                case Keys.Down:
+                    ScrollHistoryDown( );
+                    e.SuppressKeyPress = true;
+                    break;
+                case Keys.Enter:
+                    Submit( Text );
+                    e.SuppressKeyPress = true;
+                    break;
+            }
         }
     }
 }

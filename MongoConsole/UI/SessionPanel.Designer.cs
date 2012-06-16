@@ -70,7 +70,6 @@ namespace MongoConsole.UI
             this.tbInput.Name = "tbInput";
             this.tbInput.Size = new System.Drawing.Size(468, 21);
             this.tbInput.TabIndex = 0;
-            this.tbInput.KeyUp += new System.Windows.Forms.KeyEventHandler(this.tbInput_KeyUp);
             // 
             // statusInsidePanel
             // 
