@@ -92,9 +92,12 @@ namespace MongoConsole.UI.Component
 
         public void Submit( string text )
         {
-            PositionInHistory = -1;
-            History[0] = "";
+            if ( !string.IsNullOrEmpty( History[0] ) )
+                History.Insert( 1, History[0] );
+
             History.Insert( 1, text );
+            PositionInHistory = 0;
+            History[0] = "";
         }
     }
 }
