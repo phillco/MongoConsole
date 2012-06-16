@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace MongoConsole.UI.Component
 {
@@ -14,22 +15,18 @@ namespace MongoConsole.UI.Component
     {
         /// <summary>
         /// The actual history of commands. Most recent commands are at the front; oldest ones at the end.
+        /// Position 0 is reserved for scratch.
         /// </summary>
         private List<string> History = new List<string>( );
 
         /// <summary>
         /// Where we are in the History[] array.
         /// </summary>
-        private int PositionInHistory = -1;
-
-        /// <summary>
-        /// A command the user was entering but hadn't submitted yet -- we back this up if they start scrolling.
-        /// </summary>
-        private string SavedCommand = "";
+        private int PositionInHistory = 0;
 
         public HistoryTextBox( )
         {
-            History = new string[] { "one", "two", "three", "four" }.ToList( );
+            History = new string[] { "", "one", "two", "three", "four" }.ToList( );
             this.KeyDown += HistoryTextBox_KeyUp;
         }
 
@@ -56,13 +53,15 @@ namespace MongoConsole.UI.Component
             if ( PositionInHistory + 1 < History.Count )
             {
                 // Back up the unsubmitted command before scrolling.
-                if ( PositionInHistory == -1 )
-                    SavedCommand = Text;
+                if ( PositionInHistory == 0 )
+                    History[0] = Text;
 
                 PositionInHistory++;
                 Text = History[PositionInHistory];
                 Select( Text.Length, 0 );
             }
+
+            Trace.WriteLine( "At: " + PositionInHistory );
         }
 
         public void ScrollHistoryDown( )
@@ -73,15 +72,20 @@ namespace MongoConsole.UI.Component
                 Text = History[PositionInHistory];
                 Select( Text.Length, 0 );
             }
-            else
-                Text = SavedCommand; // At level -1; restore the unsubmitted command.
+            else if ( PositionInHistory == 0 )
+            {
+                PositionInHistory--; // Now -1
+                Text = "";
+            }
+
+            Trace.WriteLine( "At: " + PositionInHistory );
         }
 
         public void Submit( string text )
         {
             PositionInHistory = -1;
-            SavedCommand = "";
-            History.Insert( 0, text );
+            History[0] = "";
+            History.Insert( 1, text );
         }
     }
 }
