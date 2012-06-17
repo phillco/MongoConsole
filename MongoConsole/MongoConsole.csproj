@@ -64,6 +64,9 @@
     <Compile Include="UI\Component\HistoryTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="UI\Component\ConsoleLogBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

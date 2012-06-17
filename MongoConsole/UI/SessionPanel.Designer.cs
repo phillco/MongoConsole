@@ -29,19 +29,19 @@ namespace MongoConsole.UI
         /// </summary>
         private void InitializeComponent( )
         {
-            this.tbConsoleBox = new System.Windows.Forms.TextBox();
+            this.tbConsoleBox = new MongoConsole.UI.Component.ConsoleLogBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.cbSelectedDatabase = new System.Windows.Forms.ComboBox();
+            this.tbInput = new MongoConsole.UI.Component.HistoryTextBox();
             this.statusInsidePanel = new System.Windows.Forms.Panel();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.lblStatusHeader = new System.Windows.Forms.Label();
             this.statusPanel = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.tbInput = new MongoConsole.UI.Component.HistoryTextBox();
             this.panel2.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.statusInsidePanel.SuspendLayout();
             this.statusPanel.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbConsoleBox
@@ -67,6 +67,17 @@ namespace MongoConsole.UI
             this.panel2.Size = new System.Drawing.Size(698, 28);
             this.panel2.TabIndex = 3;
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.cbSelectedDatabase);
+            this.panel1.Controls.Add(this.tbInput);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 4);
+            this.panel1.Name = "panel1";
+            this.panel1.Padding = new System.Windows.Forms.Padding(125, 0, 5, 0);
+            this.panel1.Size = new System.Drawing.Size(698, 22);
+            this.panel1.TabIndex = 5;
+            // 
             // cbSelectedDatabase
             // 
             this.cbSelectedDatabase.FormattingEnabled = true;
@@ -77,6 +88,15 @@ namespace MongoConsole.UI
             this.cbSelectedDatabase.TabIndex = 1;
             this.cbSelectedDatabase.SelectedIndexChanged += new System.EventHandler(this.cbSelectedDatabase_SelectedIndexChanged);
             this.cbSelectedDatabase.Leave += new System.EventHandler(this.cbSelectedDatabase_Leave);
+            // 
+            // tbInput
+            // 
+            this.tbInput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbInput.Location = new System.Drawing.Point(125, 0);
+            this.tbInput.MaxEntries = 1;
+            this.tbInput.Name = "tbInput";
+            this.tbInput.Size = new System.Drawing.Size(568, 21);
+            this.tbInput.TabIndex = 1;
             // 
             // statusInsidePanel
             // 
@@ -117,26 +137,6 @@ namespace MongoConsole.UI
             this.statusPanel.Size = new System.Drawing.Size(468, 272);
             this.statusPanel.TabIndex = 3;
             // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.cbSelectedDatabase);
-            this.panel1.Controls.Add(this.tbInput);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 4);
-            this.panel1.Name = "panel1";
-            this.panel1.Padding = new System.Windows.Forms.Padding(125, 0, 5, 0);
-            this.panel1.Size = new System.Drawing.Size(698, 22);
-            this.panel1.TabIndex = 5;
-            // 
-            // tbInput
-            // 
-            this.tbInput.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbInput.Location = new System.Drawing.Point(125, 0);
-            this.tbInput.MaxEntries = 1;
-            this.tbInput.Name = "tbInput";
-            this.tbInput.Size = new System.Drawing.Size(568, 21);
-            this.tbInput.TabIndex = 1;
-            // 
             // SessionPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -150,11 +150,11 @@ namespace MongoConsole.UI
             this.Load += new System.EventHandler(this.SessionTab_Load);
             this.Resize += new System.EventHandler(this.SessionPanel_Resize);
             this.panel2.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.statusInsidePanel.ResumeLayout(false);
             this.statusInsidePanel.PerformLayout();
             this.statusPanel.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -162,7 +162,7 @@ namespace MongoConsole.UI
 
         #endregion
 
-        private System.Windows.Forms.TextBox tbConsoleBox;
+        private MongoConsole.UI.Component.ConsoleLogBox tbConsoleBox;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel statusInsidePanel;
         private System.Windows.Forms.Label lblStatusHeader;

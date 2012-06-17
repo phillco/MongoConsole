@@ -66,10 +66,7 @@ namespace MongoConsole.UI
         private void AddToLog( string text )
         {
             Session.Cache.UpdateCache( );
-            this.Invoke( (MethodInvoker) delegate
-            {
-                tbConsoleBox.Text += text;
-            } );
+            tbConsoleBox.Append( text );
         }
 
         private void SubmitCommand( string command )
@@ -77,7 +74,7 @@ namespace MongoConsole.UI
             if ( !command.EndsWith( Environment.NewLine ) )
                 command += Environment.NewLine;
 
-            tbConsoleBox.Text += "> " + command;
+            tbConsoleBox.Append( "> " + command );
             Session.Client.Send( command );
         }
 
