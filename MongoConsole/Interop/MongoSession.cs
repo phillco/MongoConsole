@@ -81,11 +81,14 @@ namespace MongoConsole.Interop
 
         public MongoSession( )
             : this( "localhost" )
-        {}
+        {
+        }
+
 
         public MongoSession( string address )
             : this( Util.Resolve( address, 27017 ))
-        { }
+        { 
+        }
 
         public MongoSession( RemoteHost address )
         {

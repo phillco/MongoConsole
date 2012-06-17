@@ -11,10 +11,13 @@ namespace MongoConsole.UI.Component
     /// <summary>
     /// The main tab control that holds the MongoTabs.
     /// </summary>
-    public class MongoTabControl : TabControl
+    public partial class MongoTabControl : TabControl
     {
-        private ToolStripMenuItem mnuDuplicateTab, mnuCloseTab;
-        private ContextMenuStrip tabContextMenu;
+        //=================================================================================
+        //
+        //  PROPERTIES
+        //
+        //=================================================================================
 
         public new MongoTab SelectedTab
         {
@@ -28,19 +31,40 @@ namespace MongoConsole.UI.Component
             }
         }
 
+        //=================================================================================
+        //
+        //  PRIVATE VARIABLES
+        //
+        //=================================================================================
+
+        /// <summary>The tab that the current context menu is opening for.</summary>
+        private MongoTab contextTab;
+
+        //=================================================================================
+        //
+        //  CONSTRUCTORS
+        //
+        //=================================================================================
+
         public MongoTabControl( )
         {
             InitializeComponent( );
-            MouseClick += sessionTabs_MouseClick;
-            mnuCloseTab.Click += ( target, e ) => CloseTab( (MongoTab) tabContextMenu.Tag );
-            mnuDuplicateTab.Click += ( target, e ) => DuplicateTab( (MongoTab) tabContextMenu.Tag );
+            MouseClick += event_MouseClick;
+            mnuCloseTab.Click += ( target, e ) => CloseTab( contextTab );
+            mnuDuplicateTab.Click += ( target, e ) => DuplicateTab( contextTab );
         }
+
+        //=================================================================================
+        //
+        //  PUBLIC METHODS
+        //
+        //=================================================================================
 
         public void Add( MongoSession newSession )
         {
             var tab = new MongoTab( newSession );
             TabPages.Add( tab );
-            SelectTab( (TabPage) tab );
+            SelectTab( tab );
         }
 
         public void CloseTab( MongoTab tab )
@@ -54,21 +78,13 @@ namespace MongoConsole.UI.Component
             Add( new MongoSession( tab.Session.Address ) );
         }
 
-        /// <summary>Finds which tab was clicked at the specific point.</summary>
-        public MongoTab GetSelectedTabIndex( Point clickLocation )
-        {
-            for ( int i = 0; i < TabCount; i++ )
-            {
-                // Does the tab area contain the mouse pointer?
-                Rectangle r = GetTabRect( i );
-                if ( r.Contains( clickLocation ) )
-                    return (MongoTab) TabPages[i];
-            }
+        //=================================================================================
+        //
+        //  PRIVATE METHODS
+        //
+        //=================================================================================
 
-            return null;
-        }
-
-        private void sessionTabs_MouseClick( object sender, MouseEventArgs e )
+        private void event_MouseClick( object sender, MouseEventArgs e )
         {
             // Extract selected tab.
             MongoTab tab = GetSelectedTabIndex( e.Location );
@@ -81,41 +97,26 @@ namespace MongoConsole.UI.Component
                     CloseTab( tab );
                     break;
                 case MouseButtons.Right:
-                    tabContextMenu.Tag = tab;
+                    contextTab = tab;
                     tabContextMenu.Show( this, e.Location );
                     break;
             }
         }
 
-        private void InitializeComponent( )
+        /// <summary>
+        /// Finds which tab was clicked at the specific point.
+        /// </summary>
+        private MongoTab GetSelectedTabIndex( Point clickLocation )
         {
-            this.mnuDuplicateTab = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuCloseTab = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabContextMenu = new ContextMenuStrip( );
-            this.SuspendLayout();
-            // 
-            // mnuDuplicateTab
-            // 
-            this.mnuDuplicateTab.Image = global::MongoConsole.Properties.Resources.document_copy;
-            this.mnuDuplicateTab.Name = "mnuDuplicateTab";
-            this.mnuDuplicateTab.Size = new System.Drawing.Size(152, 22);
-            this.mnuDuplicateTab.Text = "Duplicate";
-            // 
-            // mnuCloseTab
-            // 
-            this.mnuCloseTab.Image = global::MongoConsole.Properties.Resources.cross_octagon;
-            this.mnuCloseTab.Name = "mnuCloseTab";
-            this.mnuCloseTab.Size = new System.Drawing.Size(152, 22);
-            this.mnuCloseTab.Text = "Close";
-            this.ResumeLayout(false);
-            //
-            // tabContextMenu
-            // 
-            this.tabContextMenu.Items.AddRange( new System.Windows.Forms.ToolStripItem[] {
-            this.mnuDuplicateTab,
-            this.mnuCloseTab} );
-            this.tabContextMenu.Name = "tabContextMenu";
-            this.tabContextMenu.Size = new System.Drawing.Size( 153, 70 );
+            for ( int i = 0; i < TabCount; i++ )
+            {
+                // Does the tab area contain the mouse pointer?
+                Rectangle r = GetTabRect( i );
+                if ( r.Contains( clickLocation ) )
+                    return (MongoTab) TabPages[i];
+            }
+
+            return null;
         }
     }
 }
