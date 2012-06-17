@@ -26,14 +26,17 @@ namespace MongoConsole.UI
         {
             InitializeComponent( );
             sessionTabs.MouseClick += sessionTabs_MouseClick;
+            emptyTabArea.MouseClick += emptyTabArea_MouseClick;
+            emptyTabArea.MouseDoubleClick += emptyTabArea_MouseDoubleClick;
 
             // Hook up menu actions.
+            mnuNewSession.Click += ( target, e ) => PromptForNewSession( );
+            mnuNewSession2.Click += ( target, e ) => PromptForNewSession( );
             mnuCloseTab.Click += ( target, e ) => CloseTab( (SessionTab) tabContextMenu.Tag );
             mnuCloneTab.Click += ( target, e ) => Clone( (SessionTab) tabContextMenu.Tag );
             mnuExit.Click += ( target, e ) => Application.Exit( );
             mnuAbout.Click += ( target, e ) => new AboutForm( ).ShowDialog( this );
             mnuCloneCurrent.Click += ( target, e ) => Clone( (SessionTab) sessionTabs.SelectedTab );
-            mnuNewSession.Click += ( target, e ) => PromptForNewSession();
         }
 
         //=================================================================================
@@ -83,6 +86,17 @@ namespace MongoConsole.UI
                     tabContextMenu.Show( sessionTabs, e.Location );
                     break;
             }
+        }
+
+        private void emptyTabArea_MouseClick( object sender, MouseEventArgs e )
+        {
+            if ( e.Button == MouseButtons.Right )
+                noTabContextMenu.Show( emptyTabArea, e.Location );
+        }
+
+        private void emptyTabArea_MouseDoubleClick( object sender, MouseEventArgs e )
+        {
+            PromptForNewSession( );
         }
 
         /// <summary>Finds which tab was clicked at the specific point.</summary>

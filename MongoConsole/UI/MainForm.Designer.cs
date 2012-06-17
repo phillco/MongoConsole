@@ -34,7 +34,7 @@
             this.tabContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.mnuCloneTab = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuCloseTab = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.emptyTabArea = new System.Windows.Forms.Panel();
             this.sessionTabs = new System.Windows.Forms.TabControl();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,9 +44,12 @@
             this.mnuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this.noTabContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.mnuNewSession2 = new System.Windows.Forms.ToolStripMenuItem();
             this.tabContextMenu.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.emptyTabArea.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.noTabContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // sessionsStatusImages
@@ -63,31 +66,31 @@
             this.mnuCloneTab,
             this.mnuCloseTab});
             this.tabContextMenu.Name = "tabContextMenu";
-            this.tabContextMenu.Size = new System.Drawing.Size(153, 70);
+            this.tabContextMenu.Size = new System.Drawing.Size(147, 48);
             // 
             // mnuCloneTab
             // 
             this.mnuCloneTab.Image = global::MongoConsole.Properties.Resources.document_copy;
             this.mnuCloneTab.Name = "mnuCloneTab";
-            this.mnuCloneTab.Size = new System.Drawing.Size(152, 22);
+            this.mnuCloneTab.Size = new System.Drawing.Size(146, 22);
             this.mnuCloneTab.Text = "Clone session";
             // 
             // mnuCloseTab
             // 
             this.mnuCloseTab.Image = global::MongoConsole.Properties.Resources.cross_octagon;
             this.mnuCloseTab.Name = "mnuCloseTab";
-            this.mnuCloseTab.Size = new System.Drawing.Size(152, 22);
+            this.mnuCloseTab.Size = new System.Drawing.Size(146, 22);
             this.mnuCloseTab.Text = "Close";
             // 
-            // panel2
+            // emptyTabArea
             // 
-            this.panel2.Controls.Add(this.sessionTabs);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Padding = new System.Windows.Forms.Padding(0, 24, 0, 0);
-            this.panel2.Size = new System.Drawing.Size(750, 469);
-            this.panel2.TabIndex = 1;
+            this.emptyTabArea.Controls.Add(this.sessionTabs);
+            this.emptyTabArea.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.emptyTabArea.Location = new System.Drawing.Point(0, 0);
+            this.emptyTabArea.Name = "emptyTabArea";
+            this.emptyTabArea.Padding = new System.Windows.Forms.Padding(0, 24, 0, 0);
+            this.emptyTabArea.Size = new System.Drawing.Size(750, 469);
+            this.emptyTabArea.TabIndex = 1;
             // 
             // sessionTabs
             // 
@@ -159,8 +162,22 @@
             // mnuAbout
             // 
             this.mnuAbout.Name = "mnuAbout";
-            this.mnuAbout.Size = new System.Drawing.Size(152, 22);
+            this.mnuAbout.Size = new System.Drawing.Size(116, 22);
             this.mnuAbout.Text = "&About...";
+            // 
+            // noTabContextMenu
+            // 
+            this.noTabContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuNewSession2});
+            this.noTabContextMenu.Name = "noTabContextMenu";
+            this.noTabContextMenu.Size = new System.Drawing.Size(153, 48);
+            // 
+            // mnuNewSession2
+            // 
+            this.mnuNewSession2.Image = global::MongoConsole.Properties.Resources._new;
+            this.mnuNewSession2.Name = "mnuNewSession2";
+            this.mnuNewSession2.Size = new System.Drawing.Size(152, 22);
+            this.mnuNewSession2.Text = "New session...";
             // 
             // MainForm
             // 
@@ -168,15 +185,16 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(750, 469);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.emptyTabArea);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "MongoConsole";
             this.tabContextMenu.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
+            this.emptyTabArea.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.noTabContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -188,7 +206,7 @@
         private System.Windows.Forms.ContextMenuStrip tabContextMenu;
         private System.Windows.Forms.ToolStripMenuItem mnuCloneTab;
         private System.Windows.Forms.ToolStripMenuItem mnuCloseTab;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel emptyTabArea;
         private System.Windows.Forms.TabControl sessionTabs;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
@@ -198,6 +216,8 @@
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mnuAbout;
         private System.Windows.Forms.ToolStripMenuItem mnuCloneCurrent;
+        private System.Windows.Forms.ContextMenuStrip noTabContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem mnuNewSession2;
     }
 }
 
