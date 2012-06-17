@@ -33,6 +33,16 @@ namespace MongoConsole.UI.Component
 
         //=================================================================================
         //
+        //  EVENTS
+        //
+        //=================================================================================
+
+        public event VoidDelegate NumTabsChanged;
+
+        public delegate void VoidDelegate( );
+
+        //=================================================================================
+        //
         //  PRIVATE VARIABLES
         //
         //=================================================================================
@@ -65,12 +75,18 @@ namespace MongoConsole.UI.Component
             var tab = new MongoTab( newSession );
             TabPages.Add( tab );
             SelectTab( tab );
+
+            if ( NumTabsChanged != null )
+                NumTabsChanged( );
         }
 
         public void CloseTab( MongoTab tab )
         {
             tab.Session.Stop( );
             TabPages.Remove( tab );
+
+            if ( NumTabsChanged != null )
+                NumTabsChanged( );
         }
 
         public void DuplicateTab( MongoTab tab )
