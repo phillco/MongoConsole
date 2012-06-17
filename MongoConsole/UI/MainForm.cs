@@ -16,7 +16,7 @@ namespace MongoConsole.UI
     /// </summary>
     public partial class MainForm : Form
     {
-        public MainForm()
+        public MainForm( )
         {
             InitializeComponent( );
             sessionTabs.MouseClick += new MouseEventHandler( sessionTabs_MouseClick );
@@ -24,14 +24,20 @@ namespace MongoConsole.UI
 
         void sessionTabs_MouseClick( object sender, MouseEventArgs e )
         {
-            if ( e.Button == MouseButtons.Right )
+            // Extract selected tab.
+            SessionTab tab = GetSelectedTabIndex( e.Location );
+            if ( tab == null )
+                return;
+
+            switch ( e.Button )
             {
-                TabPage tab = GetSelectedTabIndex( e.Location );
-                if ( tab != null )
-                {
+                case MouseButtons.Middle: // Middle-click to close tabs, like Chrome.
+                    CloseTab( tab );
+                    break;
+                case MouseButtons.Right:
                     tabContextMenu.Tag = tab;
                     tabContextMenu.Show( sessionTabs, e.Location );
-                }
+                    break;
             }
         }
 
@@ -56,14 +62,14 @@ namespace MongoConsole.UI
         /// <summary>
         /// Finds which tab was clicked at the specific point.
         /// </summary>
-        private TabPage GetSelectedTabIndex( Point clickLocation )
+        private SessionTab GetSelectedTabIndex( Point clickLocation )
         {
             for ( int i = 0; i < sessionTabs.TabCount; i++ )
             {
                 // Does the tab area contain the mouse pointer?
                 Rectangle r = sessionTabs.GetTabRect( i );
                 if ( r.Contains( clickLocation ) )
-                    return sessionTabs.TabPages[i];
+                    return (SessionTab) sessionTabs.TabPages[i];
             }
 
             return null;
