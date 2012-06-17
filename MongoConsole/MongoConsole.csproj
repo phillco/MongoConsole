@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="Interop\AutoCache.cs" />
     <Compile Include="Interop\ProcessWrapper.cs" />
     <Compile Include="Interop\RemoteHost.cs" />
     <Compile Include="UI\AboutForm.cs">

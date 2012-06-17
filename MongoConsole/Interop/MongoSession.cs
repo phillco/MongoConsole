@@ -53,6 +53,8 @@ namespace MongoConsole.Interop
         /// </summary>
         public MongoServer Server { get; private set; }
 
+        public AutoCache Cache { get; private set; }
+
         //=================================================================================
         //
         //  EVENTS
@@ -91,6 +93,7 @@ namespace MongoConsole.Interop
             this.CurrentState = State.DISCONNECTED;
             Client = ProcessWrapper.Start( "mongo.exe", address.EndPoint.ToString() );
             Server = MongoServer.Create( new MongoServerSettings { Server = new MongoServerAddress( address.HostName, address.EndPoint.Port ) } );
+            Cache = new AutoCache( Server );
         }
 
         //=================================================================================

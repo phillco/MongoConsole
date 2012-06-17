@@ -25,6 +25,7 @@ namespace MongoConsole.UI
             InitializeComponent( );
             ParentTab = parent;
             Dock = DockStyle.Fill;
+            statusPanel.Dock = DockStyle.Fill;
         }
 
         private void SessionTab_Load( object sender, EventArgs e )
@@ -32,8 +33,9 @@ namespace MongoConsole.UI
             Session.StateChanged += UpdateState;
             Session.Client.InputReceived += AddToLog;
             Session.Start( );
-
+            Session.Cache.CacheUpdated += UpdateState;
             tbInput.Submitted += SubmitCommand;
+            tbInput.Select( );
             UpdateState( );
         }
 
@@ -53,10 +55,17 @@ namespace MongoConsole.UI
             }
             else
                 statusPanel.Hide( );
+
+            cbSelectedDatabase.Items.Clear( );
+            cbSelectedDatabase.Items.AddRange( Session.Cache.Databases.ToArray( ) );
+
+            if ( cbSelectedDatabase.Text != Session.Cache.CurrentDatabase )
+            cbSelectedDatabase.Text = Session.Cache.CurrentDatabase;
         }
 
         private void AddToLog( string text )
         {
+            Session.Cache.UpdateCache( );
             this.Invoke( (MethodInvoker) delegate
             {
                 tbConsoleBox.Text += text;
@@ -72,9 +81,29 @@ namespace MongoConsole.UI
             Session.Client.Send( command );
         }
 
+        private void SwitchDatabase( string newDatabase )
+        {
+            if ( newDatabase == Session.Cache.CurrentDatabase )
+                return;
+
+            Session.Cache.CurrentDatabase = newDatabase;
+            tbInput.Submit( "use " + newDatabase );
+            tbInput.Select( );
+        }
+
         private void SessionPanel_Resize( object sender, EventArgs e )
         {
             statusInsidePanel.Left = Width / 2 - statusInsidePanel.Width / 2;
+        }
+
+        private void cbSelectedDatabase_SelectedIndexChanged( object sender, EventArgs e )
+        {
+            SwitchDatabase( cbSelectedDatabase.Text );
+        }
+
+        private void cbSelectedDatabase_Leave( object sender, EventArgs e )
+        {
+            SwitchDatabase( cbSelectedDatabase.Text );
         }
     }
 }
