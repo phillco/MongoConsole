@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.ComponentModel;
 
 namespace MongoConsole.UI.Component
 {
@@ -13,6 +14,26 @@ namespace MongoConsole.UI.Component
     /// </summary>
     class HistoryTextBox : TextBox
     {
+        //=================================================================================
+        //
+        //  PROPERTIES
+        //
+        //=================================================================================
+
+        public const int DefaultMaxEntries = 1024;
+
+        /// <summary>
+        /// The actual history of commands. Most recent commands are at the front; oldest ones at the end.
+        /// Position 0 is reserved for scratch.
+        /// </summary>
+        public List<string> History { get; private set; }
+
+        /// <summary>
+        /// The maximum number of entries remembered. Excess entries are trimmed on Submit().
+        /// </summary>
+        [Description( "The maximum number of entries remembered. Excess entries are trimmed on Submit()." ), DefaultValue( DefaultMaxEntries )]
+        public int MaxEntries { get; set; }
+
         //=================================================================================
         //
         //  EVENTS
@@ -31,12 +52,6 @@ namespace MongoConsole.UI.Component
         //=================================================================================
 
         /// <summary>
-        /// The actual history of commands. Most recent commands are at the front; oldest ones at the end.
-        /// Position 0 is reserved for scratch.
-        /// </summary>
-        private List<string> History = new List<string>( );
-
-        /// <summary>
         /// Where we are in the History[] array.
         /// </summary>
         private int PositionInHistory = 0;
@@ -47,9 +62,14 @@ namespace MongoConsole.UI.Component
         //
         //=================================================================================
 
-        public HistoryTextBox( )
+        public HistoryTextBox( ) : this( DefaultMaxEntries )
         {
-            History.Insert( 0, "" );
+        }
+
+        public HistoryTextBox( int maxEntries )
+        {
+            MaxEntries = Math.Min( maxEntries, 1 ); // Always need at least 1.
+            History = new List<string>( new string[] { "" } );
             this.KeyDown += HistoryTextBox_KeyUp;
         }
 
@@ -58,7 +78,7 @@ namespace MongoConsole.UI.Component
         //  PUBLIC METHODS
         //
         //=================================================================================
-        
+
         /// <summary>
         /// Scrolls the history "up" towards older commands (forward through the History[] array).
         /// </summary>
@@ -120,6 +140,10 @@ namespace MongoConsole.UI.Component
             PositionInHistory = 0;
             Text = "";
             History[0] = ""; // Wipe scratch.
+
+            // Remove excess entries.
+            if ( History.Count > MaxEntries + 1 )
+                History.RemoveRange( MaxEntries + 1, History.Count - ( MaxEntries + 1 ) );
 
             if ( Submitted != null )
                 Submitted( text );
