@@ -18,9 +18,9 @@ namespace MongoConsole.UI
     {
         public MongoSession Session { get { return ParentTab.Session; } }
 
-        private SessionTab ParentTab;
+        private MongoTab ParentTab;
 
-        public SessionPanel( SessionTab parent )
+        public SessionPanel( MongoTab parent )
         {
             InitializeComponent( );
             ParentTab = parent;

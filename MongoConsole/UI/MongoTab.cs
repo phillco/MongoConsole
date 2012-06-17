@@ -10,13 +10,13 @@ namespace MongoConsole.UI
     /// <summary>
     /// A TabPage that holds a MongoSession and its corresponding SessionPanel.
     /// </summary>
-    public class SessionTab : TabPage
+    public class MongoTab : TabPage
     {
         public MongoSession Session { get; private set; }
 
         public SessionPanel Panel { get; private set; }
 
-        public SessionTab( MongoSession session ) : base( session.ToString() )
+        public MongoTab( MongoSession session ) : base( session.ToString() )
         {
             Session = session;
             ImageIndex = (int) Session.CurrentState;
