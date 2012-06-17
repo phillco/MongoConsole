@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Threading;
 using MongoConsole.Interop;
+using MongoConsole.UI.Component;
 
 namespace MongoConsole.UI
 {

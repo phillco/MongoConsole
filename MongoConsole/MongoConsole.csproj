@@ -67,6 +67,9 @@
     <Compile Include="UI\Component\ConsoleLogBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="UI\Component\MongoTabControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UI\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -82,13 +85,13 @@
     <Compile Include="UI\NewSessionForm.Designer.cs">
       <DependentUpon>NewSessionForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\SessionPanel.cs">
+    <Compile Include="UI\MongoSessionPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\SessionPanel.Designer.cs">
-      <DependentUpon>SessionPanel.cs</DependentUpon>
+    <Compile Include="UI\MongoSessionPanel.Designer.cs">
+      <DependentUpon>MongoSessionPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\SessionTab.cs">
+    <Compile Include="UI\Component\MongoTab.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Util.cs" />
@@ -114,8 +117,8 @@
     <EmbeddedResource Include="UI\NewSessionForm.resx">
       <DependentUpon>NewSessionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\SessionPanel.resx">
-      <DependentUpon>SessionPanel.cs</DependentUpon>
+    <EmbeddedResource Include="UI\MongoSessionPanel.resx">
+      <DependentUpon>MongoSessionPanel.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">

@@ -15,13 +15,13 @@ namespace MongoConsole.UI
     /// The actual mongo administration panel (for one session) with the console, input box, etc.
     /// Contained by a SessionTab. (Why not merge them? Because then you lose the form editor).
     /// </summary>
-    public partial class SessionPanel : UserControl
+    public partial class MongoSessionPanel : UserControl
     {
         public MongoSession Session { get { return ParentTab.Session; } }
 
         private MongoTab ParentTab;
 
-        public SessionPanel( MongoTab parent )
+        public MongoSessionPanel( MongoTab parent )
         {
             InitializeComponent( );
             ParentTab = parent;

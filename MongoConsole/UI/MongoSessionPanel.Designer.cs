@@ -1,7 +1,7 @@
 ﻿using MongoConsole.UI.Component;
 namespace MongoConsole.UI
 {
-    partial class SessionPanel
+    partial class MongoSessionPanel
     {
         /// <summary> 
         /// Required designer variable.
@@ -137,7 +137,7 @@ namespace MongoConsole.UI
             this.tbConsoleBox.Size = new System.Drawing.Size(698, 395);
             this.tbConsoleBox.TabIndex = 2;
             // 
-            // SessionPanel
+            // MongoSessionPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -145,7 +145,7 @@ namespace MongoConsole.UI
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.tbConsoleBox);
             this.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Name = "SessionPanel";
+            this.Name = "MongoSessionPanel";
             this.Size = new System.Drawing.Size(698, 395);
             this.Load += new System.EventHandler(this.SessionTab_Load);
             this.Resize += new System.EventHandler(this.SessionPanel_Resize);
