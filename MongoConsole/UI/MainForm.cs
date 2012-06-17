@@ -33,10 +33,10 @@ namespace MongoConsole.UI
             mnuNewSession.Click += ( target, e ) => PromptForNewSession( );
             mnuNewSession2.Click += ( target, e ) => PromptForNewSession( );
             mnuCloseTab.Click += ( target, e ) => CloseTab( (SessionTab) tabContextMenu.Tag );
-            mnuCloneTab.Click += ( target, e ) => Clone( (SessionTab) tabContextMenu.Tag );
+            mnuDuplicateTab.Click += ( target, e ) => DuplicateTab( (SessionTab) tabContextMenu.Tag );
             mnuExit.Click += ( target, e ) => Application.Exit( );
             mnuAbout.Click += ( target, e ) => new AboutForm( ).ShowDialog( this );
-            mnuCloneCurrent.Click += ( target, e ) => Clone( (SessionTab) sessionTabs.SelectedTab );
+            mnuDuplicateCurrent.Click += ( target, e ) => DuplicateTab( (SessionTab) sessionTabs.SelectedTab );
         }
 
         //=================================================================================
@@ -58,7 +58,7 @@ namespace MongoConsole.UI
             sessionTabs.TabPages.Remove( tab );
         }
 
-        public void Clone( SessionTab tab )
+        public void DuplicateTab( SessionTab tab )
         {
             Add( new MongoSession( tab.Session.Address ) );
         }
