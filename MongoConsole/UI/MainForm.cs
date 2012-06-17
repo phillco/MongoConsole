@@ -34,7 +34,7 @@ namespace MongoConsole.UI
             mnuNewSession2.Click += ( target, e ) => PromptForNewSession( );
             mnuExit.Click += ( target, e ) => Application.Exit( );
             mnuAbout.Click += ( target, e ) => new AboutForm( ).ShowDialog( this );
-            mnuDuplicateCurrent.Click += ( target, e ) => sessionTabs.DuplicateTab( (MongoTab) sessionTabs.SelectedTab );
+            mnuDuplicateCurrent.Click += ( target, e ) => sessionTabs.DuplicateTab( sessionTabs.SelectedTab );
         }
 
         //=================================================================================

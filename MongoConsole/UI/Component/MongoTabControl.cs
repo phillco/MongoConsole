@@ -16,6 +16,18 @@ namespace MongoConsole.UI.Component
         private ToolStripMenuItem mnuDuplicateTab, mnuCloseTab;
         private ContextMenuStrip tabContextMenu;
 
+        public new MongoTab SelectedTab
+        {
+            get
+            {
+                return (MongoTab) base.SelectedTab;
+            }
+            set
+            {
+                base.SelectedTab = value;
+            }
+        }
+
         public MongoTabControl( )
         {
             InitializeComponent( );
