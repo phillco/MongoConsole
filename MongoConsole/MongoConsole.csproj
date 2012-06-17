@@ -101,6 +101,9 @@
     <EmbeddedResource Include="UI\Component\HistoryTextBox.resx">
       <DependentUpon>HistoryTextBox.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\Component\MongoTabControl.resx">
+      <DependentUpon>MongoTabControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
