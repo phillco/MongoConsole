@@ -5,7 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using MongoConsole.Interop;
 
-namespace MongoConsole.UI
+namespace MongoConsole.UI.Component
 {
     /// <summary>
     /// A TabPage that holds a MongoSession and its corresponding SessionPanel.

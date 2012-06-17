@@ -32,11 +32,11 @@ namespace MongoConsole.UI
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cbSelectedDatabase = new System.Windows.Forms.ComboBox();
+            this.tbInput = new MongoConsole.UI.Component.HistoryTextBox();
             this.statusInsidePanel = new System.Windows.Forms.Panel();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.lblStatusHeader = new System.Windows.Forms.Label();
             this.statusPanel = new System.Windows.Forms.Panel();
-            this.tbInput = new MongoConsole.UI.Component.HistoryTextBox();
             this.tbConsoleBox = new MongoConsole.UI.Component.ConsoleLogBox();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -77,6 +77,15 @@ namespace MongoConsole.UI
             this.cbSelectedDatabase.SelectedIndexChanged += new System.EventHandler(this.cbSelectedDatabase_SelectedIndexChanged);
             this.cbSelectedDatabase.Leave += new System.EventHandler(this.cbSelectedDatabase_Leave);
             // 
+            // tbInput
+            // 
+            this.tbInput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbInput.Location = new System.Drawing.Point(125, 0);
+            this.tbInput.MaxEntries = 1;
+            this.tbInput.Name = "tbInput";
+            this.tbInput.Size = new System.Drawing.Size(568, 25);
+            this.tbInput.TabIndex = 1;
+            // 
             // statusInsidePanel
             // 
             this.statusInsidePanel.BackColor = System.Drawing.Color.White;
@@ -114,15 +123,6 @@ namespace MongoConsole.UI
             this.statusPanel.Name = "statusPanel";
             this.statusPanel.Size = new System.Drawing.Size(468, 192);
             this.statusPanel.TabIndex = 3;
-            // 
-            // tbInput
-            // 
-            this.tbInput.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbInput.Location = new System.Drawing.Point(125, 0);
-            this.tbInput.MaxEntries = 1;
-            this.tbInput.Name = "tbInput";
-            this.tbInput.Size = new System.Drawing.Size(568, 25);
-            this.tbInput.TabIndex = 1;
             // 
             // tbConsoleBox
             // 
