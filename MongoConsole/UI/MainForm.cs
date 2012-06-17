@@ -12,34 +12,35 @@ using MongoConsole.Interop;
 namespace MongoConsole.UI
 {
     /// <summary>
-    /// Shows the mongo console.
+    /// The main form with tabs and a menu.
     /// </summary>
     public partial class MainForm : Form
     {
+        //=================================================================================
+        //
+        //  CONSTRUCTORS
+        //
+        //=================================================================================
+
         public MainForm( )
         {
             InitializeComponent( );
-            sessionTabs.MouseClick += new MouseEventHandler( sessionTabs_MouseClick );
+            sessionTabs.MouseClick += sessionTabs_MouseClick;
+
+            // Hook up menu actions.
+            closeToolStripMenuItem.Click += ( target, e ) => CloseTab( (SessionTab) tabContextMenu.Tag );
+            cloneToolStripMenuItem.Click += ( target, e ) => Clone( (SessionTab) tabContextMenu.Tag );
+            exitToolStripMenuItem.Click += ( target, e ) => Application.Exit( );
+            aboutToolStripMenuItem.Click += ( target, e ) => new AboutForm( ).ShowDialog( this );
+            cloneCurrentSessionToolStripMenuItem.Click += ( target, e ) => Clone( (SessionTab) sessionTabs.SelectedTab );
+            newToolStripMenuItem.Click += ( target, e ) => PromptForNewSession();
         }
 
-        void sessionTabs_MouseClick( object sender, MouseEventArgs e )
-        {
-            // Extract selected tab.
-            SessionTab tab = GetSelectedTabIndex( e.Location );
-            if ( tab == null )
-                return;
-
-            switch ( e.Button )
-            {
-                case MouseButtons.Middle: // Middle-click to close tabs, like Chrome.
-                    CloseTab( tab );
-                    break;
-                case MouseButtons.Right:
-                    tabContextMenu.Tag = tab;
-                    tabContextMenu.Show( sessionTabs, e.Location );
-                    break;
-            }
-        }
+        //=================================================================================
+        //
+        //  PUBLIC METHODS
+        //
+        //=================================================================================
 
         public void Add( MongoSession newSession )
         {
@@ -59,9 +60,32 @@ namespace MongoConsole.UI
             Add( new MongoSession( tab.Session.Address ) );
         }
 
-        /// <summary>
-        /// Finds which tab was clicked at the specific point.
-        /// </summary>
+        //=================================================================================
+        //
+        //  PRIVATE METHODS
+        //
+        //=================================================================================
+
+        private void sessionTabs_MouseClick( object sender, MouseEventArgs e )
+        {
+            // Extract selected tab.
+            SessionTab tab = GetSelectedTabIndex( e.Location );
+            if ( tab == null )
+                return;
+
+            switch ( e.Button )
+            {
+                case MouseButtons.Middle: // Middle-click to close tabs, like Chrome.
+                    CloseTab( tab );
+                    break;
+                case MouseButtons.Right:
+                    tabContextMenu.Tag = tab;
+                    tabContextMenu.Show( sessionTabs, e.Location );
+                    break;
+            }
+        }
+
+        /// <summary>Finds which tab was clicked at the specific point.</summary>
         private SessionTab GetSelectedTabIndex( Point clickLocation )
         {
             for ( int i = 0; i < sessionTabs.TabCount; i++ )
@@ -75,32 +99,8 @@ namespace MongoConsole.UI
             return null;
         }
 
-        private void closeToolStripMenuItem_Click( object sender, EventArgs e )
-        {
-            CloseTab( (SessionTab) tabContextMenu.Tag );
-        }
-
-        private void cloneToolStripMenuItem_Click( object sender, EventArgs e )
-        {
-            Clone( (SessionTab) tabContextMenu.Tag );
-        }
-
-        private void exitToolStripMenuItem_Click( object sender, EventArgs e )
-        {
-            Application.Exit( );
-        }
-
-        private void aboutToolStripMenuItem_Click( object sender, EventArgs e )
-        {
-            new AboutForm( ).ShowDialog( this );
-        }
-
-        private void cloneCurrentSessionToolStripMenuItem_Click( object sender, EventArgs e )
-        {
-            Clone( (SessionTab) sessionTabs.SelectedTab );
-        }
-
-        private void newToolStripMenuItem_Click( object sender, EventArgs e )
+        /// <summary>Prompts the user to enter an address, then creates a tab.</summary>
+        private void PromptForNewSession( )
         {
             var address = NewSessionForm.ShowAndGetAddress( this );
             if ( !string.IsNullOrEmpty( address ) )

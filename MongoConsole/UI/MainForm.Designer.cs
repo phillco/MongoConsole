@@ -71,7 +71,6 @@
             this.cloneToolStripMenuItem.Name = "cloneToolStripMenuItem";
             this.cloneToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.cloneToolStripMenuItem.Text = "Clone session";
-            this.cloneToolStripMenuItem.Click += new System.EventHandler(this.cloneToolStripMenuItem_Click);
             // 
             // closeToolStripMenuItem
             // 
@@ -79,7 +78,6 @@
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
             this.closeToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.closeToolStripMenuItem.Text = "Close";
-            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
             // panel2
             // 
@@ -131,7 +129,6 @@
             this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             this.newToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.newToolStripMenuItem.Text = "&New session...";
-            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
             // cloneCurrentSessionToolStripMenuItem
             // 
@@ -139,7 +136,6 @@
             this.cloneCurrentSessionToolStripMenuItem.Name = "cloneCurrentSessionToolStripMenuItem";
             this.cloneCurrentSessionToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.cloneCurrentSessionToolStripMenuItem.Text = "&Clone current session";
-            this.cloneCurrentSessionToolStripMenuItem.Click += new System.EventHandler(this.cloneCurrentSessionToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
@@ -151,7 +147,6 @@
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -166,7 +161,6 @@
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.aboutToolStripMenuItem.Text = "&About...";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // MainForm
             // 
