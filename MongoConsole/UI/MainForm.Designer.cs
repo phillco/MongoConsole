@@ -32,18 +32,18 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.sessionsStatusImages = new System.Windows.Forms.ImageList(this.components);
             this.tabContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cloneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuCloneTab = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuCloseTab = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2 = new System.Windows.Forms.Panel();
             this.sessionTabs = new System.Windows.Forms.TabControl();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cloneCurrentSessionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuNewSession = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuCloneCurrent = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.tabContextMenu.SuspendLayout();
             this.panel2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -60,24 +60,24 @@
             // tabContextMenu
             // 
             this.tabContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cloneToolStripMenuItem,
-            this.closeToolStripMenuItem});
+            this.mnuCloneTab,
+            this.mnuCloseTab});
             this.tabContextMenu.Name = "tabContextMenu";
-            this.tabContextMenu.Size = new System.Drawing.Size(147, 48);
+            this.tabContextMenu.Size = new System.Drawing.Size(153, 70);
             // 
-            // cloneToolStripMenuItem
+            // mnuCloneTab
             // 
-            this.cloneToolStripMenuItem.Image = global::MongoConsole.Properties.Resources.document_copy;
-            this.cloneToolStripMenuItem.Name = "cloneToolStripMenuItem";
-            this.cloneToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
-            this.cloneToolStripMenuItem.Text = "Clone session";
+            this.mnuCloneTab.Image = global::MongoConsole.Properties.Resources.document_copy;
+            this.mnuCloneTab.Name = "mnuCloneTab";
+            this.mnuCloneTab.Size = new System.Drawing.Size(152, 22);
+            this.mnuCloneTab.Text = "Clone session";
             // 
-            // closeToolStripMenuItem
+            // mnuCloseTab
             // 
-            this.closeToolStripMenuItem.Image = global::MongoConsole.Properties.Resources.cross_octagon;
-            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
-            this.closeToolStripMenuItem.Text = "Close";
+            this.mnuCloseTab.Image = global::MongoConsole.Properties.Resources.cross_octagon;
+            this.mnuCloseTab.Name = "mnuCloseTab";
+            this.mnuCloseTab.Size = new System.Drawing.Size(152, 22);
+            this.mnuCloseTab.Text = "Close";
             // 
             // panel2
             // 
@@ -113,54 +113,54 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newToolStripMenuItem,
-            this.cloneCurrentSessionToolStripMenuItem,
+            this.mnuNewSession,
+            this.mnuCloneCurrent,
             this.toolStripSeparator2,
-            this.exitToolStripMenuItem});
+            this.mnuExit});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
-            // newToolStripMenuItem
+            // mnuNewSession
             // 
-            this.newToolStripMenuItem.Image = global::MongoConsole.Properties.Resources._new;
-            this.newToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.newToolStripMenuItem.Text = "&New session...";
+            this.mnuNewSession.Image = global::MongoConsole.Properties.Resources._new;
+            this.mnuNewSession.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.mnuNewSession.Name = "mnuNewSession";
+            this.mnuNewSession.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.mnuNewSession.Size = new System.Drawing.Size(191, 22);
+            this.mnuNewSession.Text = "&New session...";
             // 
-            // cloneCurrentSessionToolStripMenuItem
+            // mnuCloneCurrent
             // 
-            this.cloneCurrentSessionToolStripMenuItem.Image = global::MongoConsole.Properties.Resources.document_copy;
-            this.cloneCurrentSessionToolStripMenuItem.Name = "cloneCurrentSessionToolStripMenuItem";
-            this.cloneCurrentSessionToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.cloneCurrentSessionToolStripMenuItem.Text = "&Clone current session";
+            this.mnuCloneCurrent.Image = global::MongoConsole.Properties.Resources.document_copy;
+            this.mnuCloneCurrent.Name = "mnuCloneCurrent";
+            this.mnuCloneCurrent.Size = new System.Drawing.Size(191, 22);
+            this.mnuCloneCurrent.Text = "&Clone current session";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(188, 6);
             // 
-            // exitToolStripMenuItem
+            // mnuExit
             // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.exitToolStripMenuItem.Text = "E&xit";
+            this.mnuExit.Name = "mnuExit";
+            this.mnuExit.Size = new System.Drawing.Size(191, 22);
+            this.mnuExit.Text = "E&xit";
             // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutToolStripMenuItem});
+            this.mnuAbout});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "&Help";
             // 
-            // aboutToolStripMenuItem
+            // mnuAbout
             // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
-            this.aboutToolStripMenuItem.Text = "&About...";
+            this.mnuAbout.Name = "mnuAbout";
+            this.mnuAbout.Size = new System.Drawing.Size(152, 22);
+            this.mnuAbout.Text = "&About...";
             // 
             // MainForm
             // 
@@ -186,18 +186,18 @@
 
         private System.Windows.Forms.ImageList sessionsStatusImages;
         private System.Windows.Forms.ContextMenuStrip tabContextMenu;
-        private System.Windows.Forms.ToolStripMenuItem cloneToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mnuCloneTab;
+        private System.Windows.Forms.ToolStripMenuItem mnuCloseTab;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TabControl sessionTabs;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mnuNewSession;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mnuExit;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cloneCurrentSessionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mnuAbout;
+        private System.Windows.Forms.ToolStripMenuItem mnuCloneCurrent;
     }
 }
 

@@ -28,12 +28,12 @@ namespace MongoConsole.UI
             sessionTabs.MouseClick += sessionTabs_MouseClick;
 
             // Hook up menu actions.
-            closeToolStripMenuItem.Click += ( target, e ) => CloseTab( (SessionTab) tabContextMenu.Tag );
-            cloneToolStripMenuItem.Click += ( target, e ) => Clone( (SessionTab) tabContextMenu.Tag );
-            exitToolStripMenuItem.Click += ( target, e ) => Application.Exit( );
-            aboutToolStripMenuItem.Click += ( target, e ) => new AboutForm( ).ShowDialog( this );
-            cloneCurrentSessionToolStripMenuItem.Click += ( target, e ) => Clone( (SessionTab) sessionTabs.SelectedTab );
-            newToolStripMenuItem.Click += ( target, e ) => PromptForNewSession();
+            mnuCloseTab.Click += ( target, e ) => CloseTab( (SessionTab) tabContextMenu.Tag );
+            mnuCloneTab.Click += ( target, e ) => Clone( (SessionTab) tabContextMenu.Tag );
+            mnuExit.Click += ( target, e ) => Application.Exit( );
+            mnuAbout.Click += ( target, e ) => new AboutForm( ).ShowDialog( this );
+            mnuCloneCurrent.Click += ( target, e ) => Clone( (SessionTab) sessionTabs.SelectedTab );
+            mnuNewSession.Click += ( target, e ) => PromptForNewSession();
         }
 
         //=================================================================================
