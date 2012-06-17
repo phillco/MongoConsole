@@ -44,13 +44,9 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.newSessionSplitButton = new System.Windows.Forms.ToolStripSplitButton();
-            this.cloneCurrentSessionToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tabContextMenu.SuspendLayout();
             this.panel2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // sessionsStatusImages
@@ -91,7 +87,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Padding = new System.Windows.Forms.Padding(0, 50, 0, 0);
+            this.panel2.Padding = new System.Windows.Forms.Padding(0, 24, 0, 0);
             this.panel2.Size = new System.Drawing.Size(750, 469);
             this.panel2.TabIndex = 1;
             // 
@@ -99,10 +95,10 @@
             // 
             this.sessionTabs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.sessionTabs.ImageList = this.sessionsStatusImages;
-            this.sessionTabs.Location = new System.Drawing.Point(0, 50);
+            this.sessionTabs.Location = new System.Drawing.Point(0, 24);
             this.sessionTabs.Name = "sessionTabs";
             this.sessionTabs.SelectedIndex = 0;
-            this.sessionTabs.Size = new System.Drawing.Size(750, 419);
+            this.sessionTabs.Size = new System.Drawing.Size(750, 445);
             this.sessionTabs.TabIndex = 2;
             // 
             // menuStrip1
@@ -172,39 +168,11 @@
             this.aboutToolStripMenuItem.Text = "&About...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
-            // toolStrip1
-            // 
-            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newSessionSplitButton});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(750, 25);
-            this.toolStrip1.TabIndex = 4;
-            this.toolStrip1.Text = "toolStrip1";
-            // 
-            // newSessionSplitButton
-            // 
-            this.newSessionSplitButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cloneCurrentSessionToolStripMenuItem1});
-            this.newSessionSplitButton.Image = global::MongoConsole.Properties.Resources._new;
-            this.newSessionSplitButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.newSessionSplitButton.Name = "newSessionSplitButton";
-            this.newSessionSplitButton.Size = new System.Drawing.Size(113, 22);
-            this.newSessionSplitButton.Text = "New session...";
-            // 
-            // cloneCurrentSessionToolStripMenuItem1
-            // 
-            this.cloneCurrentSessionToolStripMenuItem1.Image = global::MongoConsole.Properties.Resources.document_copy;
-            this.cloneCurrentSessionToolStripMenuItem1.Name = "cloneCurrentSessionToolStripMenuItem1";
-            this.cloneCurrentSessionToolStripMenuItem1.Size = new System.Drawing.Size(187, 22);
-            this.cloneCurrentSessionToolStripMenuItem1.Text = "Clone current session";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(750, 469);
-            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.panel2);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -214,8 +182,6 @@
             this.panel2.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -237,9 +203,6 @@
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cloneCurrentSessionToolStripMenuItem;
-        private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripSplitButton newSessionSplitButton;
-        private System.Windows.Forms.ToolStripMenuItem cloneCurrentSessionToolStripMenuItem1;
     }
 }
 
