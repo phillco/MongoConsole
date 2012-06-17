@@ -16,30 +16,66 @@ namespace MongoConsole.Interop
     /// </summary>
     public class MongoSession
     {
+        //=================================================================================
+        //
+        //  PROPERTIES
+        //
+        //=================================================================================
+
         public enum State { DISCONNECTED, CONNECTING, CONNECTED }
 
         public State CurrentState
         {
-            get { return currentState; }
+            get
+            { 
+                return currentState;
+            }
             private set
             {
                 currentState = value;
-                if ( StateChanged != null )
+                if ( StateChanged != null ) // Fire the event!
                     StateChanged( );
             }
         }
 
+        /// <summary>
+        /// The address of the server we're connected to.
+        /// </summary>
         public RemoteHost Address { get; private set; }
 
+        /// <summary>
+        /// The local mongo.exe connection to the serer.
+        /// </summary>
         public ProcessWrapper Client { get; private set; }
 
-        public MongoServer Server { get; private set; } 
+        /// <summary>
+        /// The driver connection to the server.
+        /// </summary>
+        public MongoServer Server { get; private set; }
+
+        //=================================================================================
+        //
+        //  EVENTS
+        //
+        //=================================================================================
 
         public event VoidDelegate StateChanged;
 
         public delegate void VoidDelegate( );
 
+        //=================================================================================
+        //
+        //  PRIVATE VARIABLES
+        //
+        //=================================================================================
+
         private State currentState = State.DISCONNECTED;
+
+        //=================================================================================
+        //
+        //  CONSTRUCTORS
+        //
+        //=================================================================================
 
         public MongoSession( )
             : this( "localhost" )
@@ -56,6 +92,12 @@ namespace MongoConsole.Interop
             Client = ProcessWrapper.Start( "mongo.exe", address.EndPoint.ToString() );
             Server = MongoServer.Create( new MongoServerSettings { Server = new MongoServerAddress( address.HostName, address.EndPoint.Port ) } );
         }
+
+        //=================================================================================
+        //
+        //  PUBLIC METHODS
+        //
+        //=================================================================================
 
         public void Start( )
         {
