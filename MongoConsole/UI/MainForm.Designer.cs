@@ -32,7 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.sessionsStatusImages = new System.Windows.Forms.ImageList(this.components);
             this.emptyTabArea = new System.Windows.Forms.Panel();
-            this.mongoTabs = new MongoConsole.UI.Component.MongoTabControl();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuNewSession = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,9 +42,14 @@
             this.mnuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuNewSession2 = new System.Windows.Forms.ToolStripMenuItem();
             this.noTabContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.noTabsPanel = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnNewSession = new System.Windows.Forms.Button();
+            this.mongoTabs = new MongoConsole.UI.Component.MongoTabControl();
             this.emptyTabArea.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.noTabContextMenu.SuspendLayout();
+            this.noTabsPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // sessionsStatusImages
@@ -65,17 +69,6 @@
             this.emptyTabArea.Padding = new System.Windows.Forms.Padding(0, 24, 0, 0);
             this.emptyTabArea.Size = new System.Drawing.Size(750, 469);
             this.emptyTabArea.TabIndex = 1;
-            // 
-            // mongoTabs
-            // 
-            this.mongoTabs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mongoTabs.ImageList = this.sessionsStatusImages;
-            this.mongoTabs.Location = new System.Drawing.Point(0, 24);
-            this.mongoTabs.Name = "mongoTabs";
-            this.mongoTabs.SelectedIndex = 0;
-            this.mongoTabs.SelectedTab = null;
-            this.mongoTabs.Size = new System.Drawing.Size(750, 445);
-            this.mongoTabs.TabIndex = 2;
             // 
             // menuStrip1
             // 
@@ -144,7 +137,7 @@
             // 
             this.mnuNewSession2.Image = global::MongoConsole.Properties.Resources._new;
             this.mnuNewSession2.Name = "mnuNewSession2";
-            this.mnuNewSession2.Size = new System.Drawing.Size(152, 22);
+            this.mnuNewSession2.Size = new System.Drawing.Size(148, 22);
             this.mnuNewSession2.Text = "New session...";
             // 
             // noTabContextMenu
@@ -152,23 +145,69 @@
             this.noTabContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuNewSession2});
             this.noTabContextMenu.Name = "noTabContextMenu";
-            this.noTabContextMenu.Size = new System.Drawing.Size(153, 48);
+            this.noTabContextMenu.Size = new System.Drawing.Size(149, 26);
+            // 
+            // noTabsPanel
+            // 
+            this.noTabsPanel.BackColor = System.Drawing.Color.White;
+            this.noTabsPanel.Controls.Add(this.btnNewSession);
+            this.noTabsPanel.Controls.Add(this.label1);
+            this.noTabsPanel.Location = new System.Drawing.Point(269, 196);
+            this.noTabsPanel.Name = "noTabsPanel";
+            this.noTabsPanel.Size = new System.Drawing.Size(212, 77);
+            this.noTabsPanel.TabIndex = 3;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(19, 16);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(163, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "You don\'t have any open tabs!";
+            // 
+            // btnNewSession
+            // 
+            this.btnNewSession.Image = global::MongoConsole.Properties.Resources._new;
+            this.btnNewSession.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnNewSession.Location = new System.Drawing.Point(22, 37);
+            this.btnNewSession.Name = "btnNewSession";
+            this.btnNewSession.Size = new System.Drawing.Size(116, 23);
+            this.btnNewSession.TabIndex = 1;
+            this.btnNewSession.Text = "New session...";
+            this.btnNewSession.UseVisualStyleBackColor = true;
+            // 
+            // mongoTabs
+            // 
+            this.mongoTabs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mongoTabs.ImageList = this.sessionsStatusImages;
+            this.mongoTabs.Location = new System.Drawing.Point(0, 24);
+            this.mongoTabs.Name = "mongoTabs";
+            this.mongoTabs.SelectedIndex = 0;
+            this.mongoTabs.SelectedTab = null;
+            this.mongoTabs.Size = new System.Drawing.Size(750, 445);
+            this.mongoTabs.TabIndex = 2;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(750, 469);
+            this.Controls.Add(this.noTabsPanel);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.emptyTabArea);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(400, 300);
             this.Name = "MainForm";
             this.Text = "MongoConsole";
+            this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.emptyTabArea.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.noTabContextMenu.ResumeLayout(false);
+            this.noTabsPanel.ResumeLayout(false);
+            this.noTabsPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -189,6 +228,9 @@
         private System.Windows.Forms.ToolStripMenuItem mnuDuplicateCurrent;
         private System.Windows.Forms.ToolStripMenuItem mnuNewSession2;
         private System.Windows.Forms.ContextMenuStrip noTabContextMenu;
+        private System.Windows.Forms.Panel noTabsPanel;
+        private System.Windows.Forms.Button btnNewSession;
+        private System.Windows.Forms.Label label1;
     }
 }
 

@@ -30,6 +30,7 @@ namespace MongoConsole.UI
             emptyTabArea.MouseClick += emptyTabArea_MouseClick;
             emptyTabArea.MouseDoubleClick += emptyTabArea_MouseDoubleClick;
             mongoTabs.NumTabsChanged += UpdateState;
+            btnNewSession.Click += ( target, e ) => PromptForNewSession( );
 
             // Hook up menu actions.
             mnuNewSession.Click += ( target, e ) => PromptForNewSession( );
@@ -38,6 +39,7 @@ namespace MongoConsole.UI
             mnuAbout.Click += ( target, e ) => new AboutForm( ).ShowDialog( this );
             mnuDuplicateCurrent.Click += ( target, e ) => mongoTabs.DuplicateTab( mongoTabs.SelectedTab );
 
+            MainForm_Resize( null, null );
             UpdateState( );
         }
 
@@ -50,6 +52,7 @@ namespace MongoConsole.UI
         public void UpdateState( )
         {
             mnuDuplicateCurrent.Enabled = ( mongoTabs.TabCount > 0 );
+            noTabsPanel.Visible = ( mongoTabs.TabCount == 0 );
         }
 
         public void Add( MongoSession newSession )
@@ -80,6 +83,12 @@ namespace MongoConsole.UI
         private void emptyTabArea_MouseDoubleClick( object sender, MouseEventArgs e )
         {
             PromptForNewSession( );
+        }
+
+        private void MainForm_Resize( object sender, EventArgs e )
+        {
+            noTabsPanel.Left = Width / 2 - noTabsPanel.Width / 2;
+            noTabsPanel.Top = Height / 3 - noTabsPanel.Height / 2;
         }
     }
 }
