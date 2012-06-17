@@ -32,15 +32,15 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.sessionsStatusImages = new System.Windows.Forms.ImageList(this.components);
             this.emptyTabArea = new System.Windows.Forms.Panel();
-            this.sessionTabs = new MongoConsole.UI.Component.MongoTabControl( );
+            this.mongoTabs = new MongoConsole.UI.Component.MongoTabControl();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuNewSession = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuDuplicateCurrent = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuAbout = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuNewSession = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuDuplicateCurrent = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuNewSession2 = new System.Windows.Forms.ToolStripMenuItem();
             this.noTabContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.emptyTabArea.SuspendLayout();
@@ -58,7 +58,7 @@
             // 
             // emptyTabArea
             // 
-            this.emptyTabArea.Controls.Add(this.sessionTabs);
+            this.emptyTabArea.Controls.Add(this.mongoTabs);
             this.emptyTabArea.Dock = System.Windows.Forms.DockStyle.Fill;
             this.emptyTabArea.Location = new System.Drawing.Point(0, 0);
             this.emptyTabArea.Name = "emptyTabArea";
@@ -66,15 +66,16 @@
             this.emptyTabArea.Size = new System.Drawing.Size(750, 469);
             this.emptyTabArea.TabIndex = 1;
             // 
-            // sessionTabs
+            // mongoTabs
             // 
-            this.sessionTabs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sessionTabs.ImageList = this.sessionsStatusImages;
-            this.sessionTabs.Location = new System.Drawing.Point(0, 24);
-            this.sessionTabs.Name = "sessionTabs";
-            this.sessionTabs.SelectedIndex = 0;
-            this.sessionTabs.Size = new System.Drawing.Size(750, 445);
-            this.sessionTabs.TabIndex = 2;
+            this.mongoTabs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mongoTabs.ImageList = this.sessionsStatusImages;
+            this.mongoTabs.Location = new System.Drawing.Point(0, 24);
+            this.mongoTabs.Name = "mongoTabs";
+            this.mongoTabs.SelectedIndex = 0;
+            this.mongoTabs.SelectedTab = null;
+            this.mongoTabs.Size = new System.Drawing.Size(750, 445);
+            this.mongoTabs.TabIndex = 2;
             // 
             // menuStrip1
             // 
@@ -97,6 +98,22 @@
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
+            // 
+            // mnuNewSession
+            // 
+            this.mnuNewSession.Image = global::MongoConsole.Properties.Resources._new;
+            this.mnuNewSession.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.mnuNewSession.Name = "mnuNewSession";
+            this.mnuNewSession.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.mnuNewSession.Size = new System.Drawing.Size(206, 22);
+            this.mnuNewSession.Text = "&New session...";
+            // 
+            // mnuDuplicateCurrent
+            // 
+            this.mnuDuplicateCurrent.Image = global::MongoConsole.Properties.Resources.document_copy;
+            this.mnuDuplicateCurrent.Name = "mnuDuplicateCurrent";
+            this.mnuDuplicateCurrent.Size = new System.Drawing.Size(206, 22);
+            this.mnuDuplicateCurrent.Text = "&Duplicate current session";
             // 
             // toolStripSeparator2
             // 
@@ -122,22 +139,6 @@
             this.mnuAbout.Name = "mnuAbout";
             this.mnuAbout.Size = new System.Drawing.Size(116, 22);
             this.mnuAbout.Text = "&About...";
-            // 
-            // mnuNewSession
-            // 
-            this.mnuNewSession.Image = global::MongoConsole.Properties.Resources._new;
-            this.mnuNewSession.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.mnuNewSession.Name = "mnuNewSession";
-            this.mnuNewSession.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.mnuNewSession.Size = new System.Drawing.Size(206, 22);
-            this.mnuNewSession.Text = "&New session...";
-            // 
-            // mnuDuplicateCurrent
-            // 
-            this.mnuDuplicateCurrent.Image = global::MongoConsole.Properties.Resources.document_copy;
-            this.mnuDuplicateCurrent.Name = "mnuDuplicateCurrent";
-            this.mnuDuplicateCurrent.Size = new System.Drawing.Size(206, 22);
-            this.mnuDuplicateCurrent.Text = "&Duplicate current session";
             // 
             // mnuNewSession2
             // 
@@ -177,7 +178,7 @@
 
         private System.Windows.Forms.ImageList sessionsStatusImages;
         private System.Windows.Forms.Panel emptyTabArea;
-        private MongoConsole.UI.Component.MongoTabControl sessionTabs;
+        private MongoConsole.UI.Component.MongoTabControl mongoTabs;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mnuNewSession;

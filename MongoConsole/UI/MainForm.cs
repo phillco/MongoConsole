@@ -34,7 +34,7 @@ namespace MongoConsole.UI
             mnuNewSession2.Click += ( target, e ) => PromptForNewSession( );
             mnuExit.Click += ( target, e ) => Application.Exit( );
             mnuAbout.Click += ( target, e ) => new AboutForm( ).ShowDialog( this );
-            mnuDuplicateCurrent.Click += ( target, e ) => sessionTabs.DuplicateTab( sessionTabs.SelectedTab );
+            mnuDuplicateCurrent.Click += ( target, e ) => mongoTabs.DuplicateTab( mongoTabs.SelectedTab );
         }
 
         //=================================================================================
@@ -46,10 +46,9 @@ namespace MongoConsole.UI
         public void Add( MongoSession newSession )
         {
             var tab = new MongoTab( newSession );
-            sessionTabs.TabPages.Add( tab );
-            sessionTabs.SelectTab( (TabPage) tab );
+            mongoTabs.TabPages.Add( tab );
+            mongoTabs.SelectTab( (TabPage) tab );
         }
-
 
         //=================================================================================
         //
@@ -57,6 +56,13 @@ namespace MongoConsole.UI
         //
         //=================================================================================
 
+        /// <summary>Prompts the user to enter an address, then creates a tab.</summary>
+        private void PromptForNewSession( )
+        {
+            var address = NewSessionForm.ShowAndGetAddress( this );
+            if ( !string.IsNullOrEmpty( address ) )
+                Add( new MongoSession( address ) );
+        }
 
         private void emptyTabArea_MouseClick( object sender, MouseEventArgs e )
         {
@@ -67,15 +73,6 @@ namespace MongoConsole.UI
         private void emptyTabArea_MouseDoubleClick( object sender, MouseEventArgs e )
         {
             PromptForNewSession( );
-        }
-
-
-        /// <summary>Prompts the user to enter an address, then creates a tab.</summary>
-        private void PromptForNewSession( )
-        {
-            var address = NewSessionForm.ShowAndGetAddress( this );
-            if ( !string.IsNullOrEmpty( address ) )
-                Add( new MongoSession( address ) );
         }
     }
 }

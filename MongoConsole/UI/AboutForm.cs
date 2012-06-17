@@ -9,6 +9,9 @@ using System.Windows.Forms;
 
 namespace MongoConsole.UI
 {
+    /// <summary>
+    /// Shows information about the application...surprise surprise!
+    /// </summary>
     public partial class AboutForm : Form
     {
         public AboutForm( )
