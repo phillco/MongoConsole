@@ -91,12 +91,16 @@ namespace MongoConsole.Interop
         }
 
         public MongoSession( RemoteHost address )
-        {
+        {            
             this.Address = address;
             this.CurrentState = State.DISCONNECTED;
-            Client = ProcessWrapper.Start( "mongo.exe", address.EndPoint.ToString() );
-            Server = MongoServer.Create( new MongoServerSettings { Server = new MongoServerAddress( address.HostName, address.EndPoint.Port ) } );
-            Cache = new AutoCache( Server );
+            this.Cache = new AutoCache( this );
+
+            if ( address != null )
+            {
+                Client = ProcessWrapper.Start( "mongo.exe", address.EndPoint.ToString( ) );
+                Server = MongoServer.Create( new MongoServerSettings { Server = new MongoServerAddress( address.HostName, address.EndPoint.Port ) } );
+            }
         }
 
         //=================================================================================
@@ -132,10 +136,15 @@ namespace MongoConsole.Interop
 
         public override string ToString( )
         {
-            if ( Address.EndPoint.Port == Constants.DefaultMongoServerPort )
-                return Address.HostName;
+            if ( Address == null )
+                return "(Disconnected)";
             else
-                return Address.HostName + ":" + Address.EndPoint.Port;
+            {
+                if ( Address.EndPoint.Port == Constants.DefaultMongoServerPort )
+                    return Address.HostName;
+                else
+                    return Address.HostName + ":" + Address.EndPoint.Port;
+            }
         }
     }
 }

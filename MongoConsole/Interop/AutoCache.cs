@@ -40,7 +40,8 @@ namespace MongoConsole.Interop
         //
         //=================================================================================
 
-        private MongoServer server;
+        private MongoSession session;
+        private MongoServer server { get { return session.Server; } }
 
         //=================================================================================
         //
@@ -48,12 +49,13 @@ namespace MongoConsole.Interop
         //
         //=================================================================================
 
-        public AutoCache( MongoServer server, string currentDatabase = "test" )
+        public AutoCache( MongoSession session, string currentDatabase = "test" )
         {
-            this.server = server;
+            this.session = session;
             Databases = new List<string>( );
             CurrentDatabase = currentDatabase;
             Collections = new Dictionary<string, List<string>>( );
+            session.StateChanged += UpdateCache;
         }
 
         //=================================================================================
@@ -64,6 +66,9 @@ namespace MongoConsole.Interop
 
         public void UpdateCache( )
         {
+            if ( session.CurrentState != MongoSession.State.CONNECTED )
+                return;
+
             Databases = server.GetDatabaseNames( ).ToList( );
             if ( CacheUpdated != null )
                 CacheUpdated( );
