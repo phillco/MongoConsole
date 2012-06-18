@@ -7,18 +7,20 @@ using System.Drawing;
 
 namespace MongoConsole.UI.Component
 {
+    /// <summary>
+    /// Handles the UI side of autocompletion for MongoSessionPanel.
+    /// </summary>
     class AutoCompleteMaker
     {
-        private HistoryTextBox tbInput;
+        private HistoryTextBox inputTextBox;
 
-        private ListBox lbAutoComplete;
+        private ListBox popUpList;
 
-        private string AutoCompleteTextEntered = "";
+        private string filterTextTyped = "";
 
-        private int CurrentTagStart = 0;
+        private int originalTextPosition;
 
         private MongoSessionPanel parent;
-
 
         //=================================================================================
         //
@@ -33,96 +35,44 @@ namespace MongoConsole.UI.Component
 
         private AutoCompleteMaker( MongoSessionPanel parent, HistoryTextBox textBox, ListBox autocompleteBox )
         {
-            tbInput = textBox;
-            lbAutoComplete = autocompleteBox;
+            inputTextBox = textBox;
+            popUpList = autocompleteBox;
             this.parent = parent;
 
-            tbInput.KeyDown += tbInput_KeyDown;
-            lbAutoComplete.KeyPress += lbAutoComplete_KeyPress;
-            lbAutoComplete.KeyUp += lbAutoComplete_KeyUp;
+            inputTextBox.KeyDown += InputBox_KeyDown;
+            popUpList.KeyPress += PopUpList_KeyPress;
+            popUpList.KeyUp += PopUpList_KeyUp;
         }
+
+        //=================================================================================
+        //
+        //  PRIVATE METHODS
+        //
+        //=================================================================================
 
         private void StartAutoComplete( )
         {
-            CurrentTagStart = tbInput.SelectionStart;
+            originalTextPosition = inputTextBox.SelectionStart;
 
             // Position the autocomplete box apropriately.
-            Point p = tbInput.GetPositionFromCharIndex( tbInput.SelectionStart );
-            p.X += tbInput.Left += 15;
-            p.Y += parent.tbConsoleBox.Height - ( lbAutoComplete.Height + tbInput.Height );
+            Point p = inputTextBox.GetPositionFromCharIndex( inputTextBox.SelectionStart );
+            p.X += inputTextBox.Left += 15;
+            p.Y += parent.tbConsoleBox.Height - ( popUpList.Height + inputTextBox.Height );
 
-            tbInput.HistoryEnabled = false;
-            lbAutoComplete.SelectedIndex = 0;
-            lbAutoComplete.Location = p;
-            lbAutoComplete.Show( );
+            inputTextBox.HistoryEnabled = false;
+            popUpList.SelectedIndex = 0;
+            popUpList.Location = p;
+            popUpList.Show( );
 
-            parent.ActiveControl = lbAutoComplete;
+            parent.ActiveControl = popUpList;
         }
 
         private void StopAutoComplete( )
         {
-            AutoCompleteTextEntered = "";
-            lbAutoComplete.Hide( );
-            tbInput.Select( );
-            tbInput.HistoryEnabled = true;
-        }
-
-        void tbInput_KeyDown( object sender, KeyEventArgs e )
-        {
-            if ( e.KeyCode == Keys.OemPeriod && !e.Shift )
-                StartAutoComplete( );
-        }
-
-        private void lbAutoComplete_KeyPress( object sender, KeyPressEventArgs e )
-        {
-            if ( e.KeyChar == 27 )
-                return;
-
-            if ( e.KeyChar == 8 )
-            {
-                tbInput.Text = tbInput.Text.Remove( tbInput.Text.Length - 1, 1 );
-                return;
-            }
-
-            tbInput.SelectedText = e.KeyChar.ToString( );
-        }
-
-        private void lbAutoComplete_KeyUp( object sender, KeyEventArgs e )
-        {
-            if ( e.KeyCode == Keys.Down || e.KeyCode == Keys.Up )
-                return;
-
-            if ( e.KeyCode == Keys.Escape ) // ESC -> Exit autocomplete
-            {
-                StopAutoComplete( );
-                return;
-            }
-            else if ( e.KeyCode == Keys.Back ) // Backspace
-            {
-                tbInput.Text.Remove( tbInput.Text.Length - 1, 1 );
-                e.Handled = true;
-                e.SuppressKeyPress = true;
-            }
-            else if ( e.KeyCode == Keys.Return )
-            {
-                // Command submitted!
-                tbInput.Select( CurrentTagStart + 1, tbInput.SelectionStart );
-                tbInput.SelectedText = lbAutoComplete.SelectedItem.ToString( );
-                StopAutoComplete( );
-                e.SuppressKeyPress = true;
-            }
-            else if ( e.KeyCode != Keys.OemPeriod )
-            {
-                AutoCompleteTextEntered += e.KeyCode;
-
-                // Match what the user has typed to a 
-                var matched = GetMatchingString( AutoCompleteTextEntered, lbAutoComplete.Items );
-
-                if ( matched == null )
-                    StopAutoComplete( );
-                else
-                    lbAutoComplete.SelectedItem = matched;
-            }
+            filterTextTyped = "";
+            popUpList.Hide( );
+            inputTextBox.Select( );
+            inputTextBox.HistoryEnabled = true;
         }
 
         private object GetMatchingString( string prefix, ListBox.ObjectCollection items )
@@ -135,6 +85,77 @@ namespace MongoConsole.UI.Component
             }
 
             return null;
+        }
+
+        //=================================================================================
+        //
+        //  InputBox Events
+        //
+        //=================================================================================
+
+        private void InputBox_KeyDown( object sender, KeyEventArgs e )
+        {
+            if ( e.KeyCode == Keys.OemPeriod && !e.Shift )
+                StartAutoComplete( );
+        }
+
+        //=================================================================================
+        //
+        //  PopUpList Events
+        //
+        //=================================================================================
+
+        private void PopUpList_KeyPress( object sender, KeyPressEventArgs e )
+        {
+            if ( e.KeyChar == 27 ) // Escape - don't process.
+                return;
+
+            if ( e.KeyChar == 8 ) // Backspace - handle specially.
+                inputTextBox.Text = inputTextBox.Text.Remove( inputTextBox.Text.Length - 1, 1 );
+            else
+                inputTextBox.SelectedText = e.KeyChar.ToString( );
+        }
+
+        private void PopUpList_KeyUp( object sender, KeyEventArgs e )
+        {
+            // Don't handle up or down keys. Pass these on to the control.
+            if ( e.KeyCode == Keys.Down || e.KeyCode == Keys.Up )
+                return;
+
+            switch ( e.KeyCode )
+            {
+                case Keys.Escape:
+                    StopAutoComplete( );
+                    break;
+
+                case Keys.Back: // Backspace
+                    inputTextBox.Text.Remove( inputTextBox.Text.Length - 1, 1 );
+                    e.Handled = true;
+                    e.SuppressKeyPress = true;
+                    break;
+
+                case Keys.Return: // Enter or Return
+                    inputTextBox.Select( originalTextPosition + 1, inputTextBox.SelectionStart );
+                    inputTextBox.SelectedText = popUpList.SelectedItem.ToString( );
+                    StopAutoComplete( );
+                    e.SuppressKeyPress = true;
+                    break;
+
+                case Keys.OemPeriod:
+                    break;
+
+                default:
+                    filterTextTyped += e.KeyCode;
+
+                    // Match what the user has typed to a 
+                    var matched = GetMatchingString( filterTextTyped, popUpList.Items );
+
+                    if ( matched == null )
+                        StopAutoComplete( );
+                    else
+                        popUpList.SelectedItem = matched;
+                    break;
+            }
         }
     }
 }
