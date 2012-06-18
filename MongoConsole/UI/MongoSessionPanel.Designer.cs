@@ -141,8 +141,6 @@ namespace MongoConsole.UI
             this.lbAutoComplete.Size = new System.Drawing.Size(120, 72);
             this.lbAutoComplete.TabIndex = 5;
             this.lbAutoComplete.Visible = false;
-            this.lbAutoComplete.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lbAutoComplete_KeyPress);
-            this.lbAutoComplete.KeyUp += new System.Windows.Forms.KeyEventHandler(this.lbAutoComplete_KeyUp);
             // 
             // tbConsoleBox
             // 
@@ -183,7 +181,6 @@ namespace MongoConsole.UI
 
         #endregion
 
-        private MongoConsole.UI.Component.ConsoleLogBox tbConsoleBox;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel statusInsidePanel;
         private System.Windows.Forms.Label lblStatusHeader;
@@ -191,7 +188,8 @@ namespace MongoConsole.UI
         private System.Windows.Forms.Panel statusPanel;
         private System.Windows.Forms.ComboBox cbSelectedDatabase;
         private System.Windows.Forms.Panel panel1;
-        private HistoryTextBox tbInput;
-        private System.Windows.Forms.ListBox lbAutoComplete;
+        public HistoryTextBox tbInput;
+        public ConsoleLogBox tbConsoleBox;
+        public System.Windows.Forms.ListBox lbAutoComplete;
     }
 }

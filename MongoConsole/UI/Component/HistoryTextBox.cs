@@ -12,7 +12,7 @@ namespace MongoConsole.UI.Component
     /// A textbox that saves all the commands previously entered, allowing the user to easily re-enter or correct them.
     /// Up and Down scrolls through the command history; Enter submits.
     /// </summary>
-    class HistoryTextBox : TextBox
+    public class HistoryTextBox : TextBox
     {
         //=================================================================================
         //

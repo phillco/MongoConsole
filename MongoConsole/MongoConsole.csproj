@@ -61,6 +61,7 @@
     <Compile Include="UI\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Component\AutoCompleteMaker.cs" />
     <Compile Include="UI\Component\HistoryTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
