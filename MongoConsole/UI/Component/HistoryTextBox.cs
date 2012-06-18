@@ -22,6 +22,9 @@ namespace MongoConsole.UI.Component
 
         public const int DefaultMaxEntries = 1024;
 
+        [Description( "Controls whether the up and down keys are intercepted to scroll through history." ), DefaultValue( true )]
+        public bool HistoryEnabled { get; set; }
+
         /// <summary>
         /// The actual history of commands. Most recent commands are at the front; oldest ones at the end.
         /// Position 0 is reserved for scratch.
@@ -68,6 +71,7 @@ namespace MongoConsole.UI.Component
 
         public HistoryTextBox( int maxEntries )
         {
+            HistoryEnabled = true;
             MaxEntries = Math.Min( maxEntries, 1 ); // Always need at least 1.
             History = new List<string>( new string[] { "" } );
             this.KeyDown += HistoryTextBox_KeyUp;
@@ -157,6 +161,9 @@ namespace MongoConsole.UI.Component
 
         private void HistoryTextBox_KeyUp( object sender, KeyEventArgs e )
         {
+            if ( !HistoryEnabled )
+                return;
+
             switch ( e.KeyCode )
             {
                 case Keys.Up:

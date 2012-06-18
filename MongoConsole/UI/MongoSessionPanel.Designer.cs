@@ -37,6 +37,7 @@ namespace MongoConsole.UI
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.lblStatusHeader = new System.Windows.Forms.Label();
             this.statusPanel = new System.Windows.Forms.Panel();
+            this.lbAutoComplete = new System.Windows.Forms.ListBox();
             this.tbConsoleBox = new MongoConsole.UI.Component.ConsoleLogBox();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -124,6 +125,25 @@ namespace MongoConsole.UI
             this.statusPanel.Size = new System.Drawing.Size(468, 192);
             this.statusPanel.TabIndex = 3;
             // 
+            // lbAutoComplete
+            // 
+            this.lbAutoComplete.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbAutoComplete.ForeColor = System.Drawing.Color.DarkSlateBlue;
+            this.lbAutoComplete.FormattingEnabled = true;
+            this.lbAutoComplete.ItemHeight = 17;
+            this.lbAutoComplete.Items.AddRange(new object[] {
+            "runCommand()",
+            "adminCommand()",
+            "commandHelp()",
+            "getProfilingLevel()"});
+            this.lbAutoComplete.Location = new System.Drawing.Point(186, 314);
+            this.lbAutoComplete.Name = "lbAutoComplete";
+            this.lbAutoComplete.Size = new System.Drawing.Size(120, 72);
+            this.lbAutoComplete.TabIndex = 5;
+            this.lbAutoComplete.Visible = false;
+            this.lbAutoComplete.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.lbAutoComplete_KeyPress);
+            this.lbAutoComplete.KeyUp += new System.Windows.Forms.KeyEventHandler(this.lbAutoComplete_KeyUp);
+            // 
             // tbConsoleBox
             // 
             this.tbConsoleBox.BackColor = System.Drawing.Color.White;
@@ -141,6 +161,7 @@ namespace MongoConsole.UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lbAutoComplete);
             this.Controls.Add(this.statusPanel);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.tbConsoleBox);
@@ -171,5 +192,6 @@ namespace MongoConsole.UI
         private System.Windows.Forms.ComboBox cbSelectedDatabase;
         private System.Windows.Forms.Panel panel1;
         private HistoryTextBox tbInput;
+        private System.Windows.Forms.ListBox lbAutoComplete;
     }
 }

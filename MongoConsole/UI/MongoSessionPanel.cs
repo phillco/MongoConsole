@@ -21,12 +21,112 @@ namespace MongoConsole.UI
 
         private MongoTab ParentTab;
 
+        public string AutoCompleteTextEntered = "";
+
+        public int CurrentTagStart = 0;
+
         public MongoSessionPanel( MongoTab parent )
         {
             InitializeComponent( );
             ParentTab = parent;
             Dock = DockStyle.Fill;
             statusPanel.Dock = DockStyle.Fill;
+            tbInput.KeyDown += tbInput_KeyDown;
+        }
+
+        void tbInput_KeyDown( object sender, KeyEventArgs e )
+        {
+            if ( e.KeyCode == Keys.OemPeriod && !e.Shift )
+                StartAutoComplete( );
+        }
+
+        private void lbAutoComplete_KeyUp( object sender, KeyEventArgs e )
+        {
+            if ( e.KeyCode == Keys.Down || e.KeyCode == Keys.Up )
+                return;
+
+            if ( e.KeyCode == Keys.Escape ) // ESC -> Exit autocomplete
+            {
+                StopAutoComplete( );
+                return;
+            }
+            else if ( e.KeyCode == Keys.Back ) // Backspace
+            {
+                tbInput.Text.Remove( tbInput.Text.Length - 1, 1 );
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+            else if ( e.KeyCode == Keys.Return )
+            {
+                // Command submitted!
+                tbInput.Select( CurrentTagStart + 1, tbInput.SelectionStart );
+                tbInput.SelectedText = lbAutoComplete.SelectedItem.ToString( );
+                StopAutoComplete( );
+                e.SuppressKeyPress = true;
+            }
+            else if ( e.KeyCode != Keys.OemPeriod )
+            {
+                AutoCompleteTextEntered += e.KeyCode;
+
+                // Match what the user has typed to a 
+                var matched = GetMatchingString( AutoCompleteTextEntered, lbAutoComplete.Items );
+
+                if ( matched == null )
+                    StopAutoComplete( );
+                else
+                    lbAutoComplete.SelectedItem = matched;
+            }
+        }
+
+        private object GetMatchingString( string prefix, ListBox.ObjectCollection items )
+        {
+            foreach ( object o in items )
+            {
+                var s = o.ToString( );
+                if ( !string.IsNullOrEmpty( s ) && s.StartsWith( prefix, StringComparison.CurrentCultureIgnoreCase ) )
+                    return o;
+            }
+
+            return null;
+        }
+
+        private void StartAutoComplete( )
+        {
+            CurrentTagStart = tbInput.SelectionStart;
+
+            // Position the autocomplete box apropriately.
+            Point p = tbInput.GetPositionFromCharIndex( tbInput.SelectionStart );
+            p.X += tbInput.Left += 15;
+            p.Y += tbConsoleBox.Height - ( lbAutoComplete.Height + tbInput.Height );
+
+            tbInput.HistoryEnabled = false;
+            lbAutoComplete.SelectedIndex = 0;
+            lbAutoComplete.Location = p;
+            lbAutoComplete.Show( );
+
+            ActiveControl = lbAutoComplete;
+        }
+
+        private void StopAutoComplete( )
+        {
+            AutoCompleteTextEntered = "";
+            lbAutoComplete.Hide( );
+            tbInput.Select( );
+            tbInput.HistoryEnabled = true;
+        }
+
+        private void lbAutoComplete_KeyPress( object sender, KeyPressEventArgs e )
+        {
+            if ( e.KeyChar == 27 )
+                return;
+
+            if ( e.KeyChar == 8 )
+            {
+                tbInput.Text = tbInput.Text.Remove( tbInput.Text.Length - 1, 1 );
+                return;
+            }
+
+            tbInput.SelectedText = e.KeyChar.ToString( );
         }
 
         private void SessionTab_Load( object sender, EventArgs e )
@@ -61,12 +161,13 @@ namespace MongoConsole.UI
             cbSelectedDatabase.Items.AddRange( Session.Cache.Databases.ToArray( ) );
 
             if ( cbSelectedDatabase.Text != Session.Cache.CurrentDatabase )
-            cbSelectedDatabase.Text = Session.Cache.CurrentDatabase;
+                cbSelectedDatabase.Text = Session.Cache.CurrentDatabase;
         }
 
         private void AddToLog( string text )
         {
-            Session.Cache.UpdateCache( );
+            if ( Session.CurrentState == MongoSession.State.CONNECTED )
+                Session.Cache.UpdateCache( );
             tbConsoleBox.Append( text );
         }
 
