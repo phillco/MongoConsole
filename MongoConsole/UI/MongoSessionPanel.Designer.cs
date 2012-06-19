@@ -32,12 +32,13 @@ namespace MongoConsole.UI
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cbSelectedDatabase = new System.Windows.Forms.ComboBox();
-            this.tbInput = new MongoConsole.UI.Component.HistoryTextBox();
             this.statusInsidePanel = new System.Windows.Forms.Panel();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.pbConnecting = new System.Windows.Forms.ProgressBar();
             this.lblStatusHeader = new System.Windows.Forms.Label();
             this.statusPanel = new System.Windows.Forms.Panel();
             this.lbAutoComplete = new System.Windows.Forms.ListBox();
+            this.lblStatusSubHeader = new System.Windows.Forms.Label();
+            this.tbInput = new MongoConsole.UI.Component.HistoryTextBox();
             this.tbConsoleBox = new MongoConsole.UI.Component.ConsoleLogBox();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -78,39 +79,31 @@ namespace MongoConsole.UI
             this.cbSelectedDatabase.SelectedIndexChanged += new System.EventHandler(this.cbSelectedDatabase_SelectedIndexChanged);
             this.cbSelectedDatabase.Leave += new System.EventHandler(this.cbSelectedDatabase_Leave);
             // 
-            // tbInput
-            // 
-            this.tbInput.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbInput.Location = new System.Drawing.Point(125, 0);
-            this.tbInput.MaxEntries = 1;
-            this.tbInput.Name = "tbInput";
-            this.tbInput.Size = new System.Drawing.Size(568, 25);
-            this.tbInput.TabIndex = 1;
-            // 
             // statusInsidePanel
             // 
             this.statusInsidePanel.BackColor = System.Drawing.Color.White;
-            this.statusInsidePanel.Controls.Add(this.progressBar1);
+            this.statusInsidePanel.Controls.Add(this.lblStatusSubHeader);
+            this.statusInsidePanel.Controls.Add(this.pbConnecting);
             this.statusInsidePanel.Controls.Add(this.lblStatusHeader);
-            this.statusInsidePanel.Location = new System.Drawing.Point(111, 54);
+            this.statusInsidePanel.Location = new System.Drawing.Point(17, 54);
             this.statusInsidePanel.Name = "statusInsidePanel";
-            this.statusInsidePanel.Size = new System.Drawing.Size(247, 85);
+            this.statusInsidePanel.Size = new System.Drawing.Size(414, 85);
             this.statusInsidePanel.TabIndex = 4;
             // 
-            // progressBar1
+            // pbConnecting
             // 
-            this.progressBar1.Location = new System.Drawing.Point(51, 42);
-            this.progressBar1.MarqueeAnimationSpeed = 25;
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(118, 14);
-            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.progressBar1.TabIndex = 2;
+            this.pbConnecting.Location = new System.Drawing.Point(150, 40);
+            this.pbConnecting.MarqueeAnimationSpeed = 25;
+            this.pbConnecting.Name = "pbConnecting";
+            this.pbConnecting.Size = new System.Drawing.Size(118, 14);
+            this.pbConnecting.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.pbConnecting.TabIndex = 2;
             // 
             // lblStatusHeader
             // 
             this.lblStatusHeader.AutoSize = true;
             this.lblStatusHeader.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStatusHeader.Location = new System.Drawing.Point(48, 21);
+            this.lblStatusHeader.Location = new System.Drawing.Point(147, 20);
             this.lblStatusHeader.Name = "lblStatusHeader";
             this.lblStatusHeader.Size = new System.Drawing.Size(92, 16);
             this.lblStatusHeader.TabIndex = 0;
@@ -141,6 +134,25 @@ namespace MongoConsole.UI
             this.lbAutoComplete.Size = new System.Drawing.Size(120, 72);
             this.lbAutoComplete.TabIndex = 5;
             this.lbAutoComplete.Visible = false;
+            // 
+            // lblStatusSubHeader
+            // 
+            this.lblStatusSubHeader.AutoSize = true;
+            this.lblStatusSubHeader.Location = new System.Drawing.Point(147, 40);
+            this.lblStatusSubHeader.Name = "lblStatusSubHeader";
+            this.lblStatusSubHeader.Size = new System.Drawing.Size(101, 13);
+            this.lblStatusSubHeader.TabIndex = 3;
+            this.lblStatusSubHeader.Text = "Status goes here...";
+            this.lblStatusSubHeader.Visible = false;
+            // 
+            // tbInput
+            // 
+            this.tbInput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbInput.Location = new System.Drawing.Point(125, 0);
+            this.tbInput.MaxEntries = 1;
+            this.tbInput.Name = "tbInput";
+            this.tbInput.Size = new System.Drawing.Size(568, 25);
+            this.tbInput.TabIndex = 1;
             // 
             // tbConsoleBox
             // 
@@ -184,12 +196,13 @@ namespace MongoConsole.UI
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel statusInsidePanel;
         private System.Windows.Forms.Label lblStatusHeader;
-        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.ProgressBar pbConnecting;
         private System.Windows.Forms.Panel statusPanel;
         private System.Windows.Forms.ComboBox cbSelectedDatabase;
         private System.Windows.Forms.Panel panel1;
         public HistoryTextBox tbInput;
         public ConsoleLogBox tbConsoleBox;
         public System.Windows.Forms.ListBox lbAutoComplete;
+        private System.Windows.Forms.Label lblStatusSubHeader;
     }
 }

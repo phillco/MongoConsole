@@ -55,7 +55,7 @@ namespace MongoConsole.Interop
             Databases = new List<string>( );
             CurrentDatabase = currentDatabase;
             Collections = new Dictionary<string, List<string>>( );
-            session.StateChanged += UpdateCache;
+            session.Status.StateChanged += UpdateCache;
         }
 
         //=================================================================================
@@ -66,7 +66,7 @@ namespace MongoConsole.Interop
 
         public void UpdateCache( )
         {
-            if ( session.CurrentState != MongoSession.State.CONNECTED )
+            if ( session.Status.CurrentState != ConnectionStatus.State.CONNECTED )
                 return;
 
             Databases = server.GetDatabaseNames( ).ToList( );

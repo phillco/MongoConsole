@@ -91,7 +91,7 @@ namespace MongoConsole.UI.Component
 
         public void DuplicateTab( MongoTab tab )
         {
-            Add( new MongoSession( tab.Session.Address ) );
+            Add( new MongoSession( tab.Session.Address.ToString() ) );
         }
 
         //=================================================================================

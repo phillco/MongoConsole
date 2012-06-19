@@ -19,6 +19,8 @@ namespace MongoConsole.UI
     {
         public MongoSession Session { get { return ParentTab.Session; } }
 
+        public bool Initialized { get; private set; }
+
         private MongoTab ParentTab;
 
         public MongoSessionPanel( MongoTab parent )
@@ -32,12 +34,7 @@ namespace MongoConsole.UI
 
         private void SessionTab_Load( object sender, EventArgs e )
         {
-            Session.StateChanged += UpdateState;
-            Session.Client.InputReceived += AddToLog;
-            Session.Start( );
-            Session.Cache.CacheUpdated += UpdateState;
-            tbInput.Submitted += SubmitCommand;
-            tbInput.Select( );
+            Session.Status.StateChanged += UpdateState;
             UpdateState( );
         }
 
@@ -49,15 +46,40 @@ namespace MongoConsole.UI
                 return;
             }
 
-            ParentTab.ImageIndex = (int) Session.CurrentState;
-            if ( Session.CurrentState == MongoSession.State.CONNECTING )
+            switch ( Session.Status.CurrentState )
             {
-                statusPanel.Show( );
-                lblStatusHeader.Text = "Connecting...";
-            }
-            else
-                statusPanel.Hide( );
+                case ConnectionStatus.State.CONNECTED:
+                    if ( !Initialized )
+                    {
+                        statusPanel.Hide( );
+                        Session.Client.InputReceived += AddToLog;
+                        Session.Cache.CacheUpdated += UpdateState;
+                        tbConsoleBox.Text = "Connected to " + Session.Address.HostName + Environment.NewLine;
+                        tbInput.Submitted += SubmitCommand;
+                        tbInput.Select( );                        
+                        Initialized = true;                        
+                    }
+                    break;
 
+                case ConnectionStatus.State.CONNECTING:
+                    statusPanel.Show( );
+                    lblStatusHeader.Text = "Connecting...";
+                    break;
+
+                case ConnectionStatus.State.DISCONNECTED:
+                    break;
+
+                case ConnectionStatus.State.FAILED:
+                    statusPanel.Show( );
+                    pbConnecting.Hide( );
+                    lblStatusSubHeader.Show( );
+                    lblStatusHeader.Text = "Failure";
+                    lblStatusSubHeader.Text = Session.Status.FailureString;
+                    break;
+            }
+
+            ParentTab.ImageIndex = (int) Session.Status.CurrentState;
+            tbInput.Enabled = cbSelectedDatabase.Enabled = tbConsoleBox.Enabled = ( Session.Status.CurrentState == ConnectionStatus.State.CONNECTED );
             cbSelectedDatabase.Items.Clear( );
             cbSelectedDatabase.Items.AddRange( Session.Cache.Databases.ToArray( ) );
 
@@ -67,7 +89,7 @@ namespace MongoConsole.UI
 
         private void AddToLog( string text )
         {
-            if ( Session.CurrentState == MongoSession.State.CONNECTED )
+            if ( Session.Status.CurrentState == ConnectionStatus.State.CONNECTED )
                 Session.Cache.UpdateCache( );
             tbConsoleBox.Append( text );
         }

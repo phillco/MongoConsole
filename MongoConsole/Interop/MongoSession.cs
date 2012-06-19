@@ -22,21 +22,7 @@ namespace MongoConsole.Interop
         //
         //=================================================================================
 
-        public enum State { DISCONNECTED, CONNECTING, CONNECTED }
-
-        public State CurrentState
-        {
-            get
-            { 
-                return currentState;
-            }
-            private set
-            {
-                currentState = value;
-                if ( StateChanged != null ) // Fire the event!
-                    StateChanged( );
-            }
-        }
+        public ConnectionStatus Status { get; private set; }
 
         /// <summary>
         /// The address of the server we're connected to.
@@ -57,24 +43,6 @@ namespace MongoConsole.Interop
 
         //=================================================================================
         //
-        //  EVENTS
-        //
-        //=================================================================================
-
-        public event VoidDelegate StateChanged;
-
-        public delegate void VoidDelegate( );
-
-        //=================================================================================
-        //
-        //  PRIVATE VARIABLES
-        //
-        //=================================================================================
-
-        private State currentState = State.DISCONNECTED;
-
-        //=================================================================================
-        //
         //  CONSTRUCTORS
         //
         //=================================================================================
@@ -84,23 +52,15 @@ namespace MongoConsole.Interop
         {
         }
 
-
         public MongoSession( string address )
-            : this( Util.Resolve( address, 27017 ))
-        { 
-        }
-
-        public MongoSession( RemoteHost address )
-        {            
-            this.Address = address;
-            this.CurrentState = State.DISCONNECTED;
-            this.Cache = new AutoCache( this );
-
-            if ( address != null )
+        {
+            this.Status = new ConnectionStatus
             {
-                Client = ProcessWrapper.Start( "mongo.exe", address.EndPoint.ToString( ) );
-                Server = MongoServer.Create( new MongoServerSettings { Server = new MongoServerAddress( address.HostName, address.EndPoint.Port ) } );
-            }
+                OriginalConnectionString = address
+            };
+
+            this.Cache = new AutoCache( this );
+            Start( );
         }
 
         //=================================================================================
@@ -111,33 +71,49 @@ namespace MongoConsole.Interop
 
         public void Start( )
         {
-            this.CurrentState = State.CONNECTING;
+            Status.CurrentState = ConnectionStatus.State.CONNECTING;
+
             ThreadPool.QueueUserWorkItem( delegate
             {
+                // First resolve the DNS name of the address.
+                this.Address = Util.Resolve( Status.OriginalConnectionString, 27017 );
+                if ( Address == null )
+                {
+                    Status.FailureString = "Could not resolve that address.";
+                    Status.CurrentState = ConnectionStatus.State.FAILED;
+                    return;
+                }
+
+                Client = ProcessWrapper.Start( "mongo.exe", Address.EndPoint.ToString( ) );
                 Client.Start( );
+                Server = MongoServer.Create( new MongoServerSettings { Server = new MongoServerAddress( Address.HostName, Address.EndPoint.Port ) } );
+
                 try
                 {
                     Server.Ping( );
-                    this.CurrentState = State.CONNECTED;
+                    Status.CurrentState = ConnectionStatus.State.CONNECTED;
                 }
                 catch ( SocketException )
                 {
-                    this.CurrentState = State.DISCONNECTED;
+                    Status.FailureString = "Could not connect to the server. (Socket error)";
+                    Status.CurrentState = ConnectionStatus.State.FAILED;
                 }
             } );
         }
 
         public void Stop( )
         {
-            this.CurrentState = State.DISCONNECTED;
-            Server.Disconnect( );
-            Client.Stop( );
+            Status.CurrentState = ConnectionStatus.State.DISCONNECTED;
+            if ( Server != null )
+                Server.Disconnect( );
+            if ( Client != null )
+                Client.Stop( );
         }
 
         public override string ToString( )
         {
             if ( Address == null )
-                return "(Disconnected)";
+                return Status.OriginalConnectionString;
             else
             {
                 if ( Address.EndPoint.Port == Constants.DefaultMongoServerPort )

@@ -43,8 +43,8 @@
             this.mnuNewSession2 = new System.Windows.Forms.ToolStripMenuItem();
             this.noTabContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.noTabsPanel = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
             this.btnNewSession = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.mongoTabs = new MongoConsole.UI.Component.MongoTabControl();
             this.emptyTabArea.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -59,6 +59,7 @@
             this.sessionsStatusImages.Images.SetKeyName(0, "status-offline.png");
             this.sessionsStatusImages.Images.SetKeyName(1, "status-away.png");
             this.sessionsStatusImages.Images.SetKeyName(2, "status.png");
+            this.sessionsStatusImages.Images.SetKeyName(3, "status-busy.png");
             // 
             // emptyTabArea
             // 
@@ -157,15 +158,6 @@
             this.noTabsPanel.Size = new System.Drawing.Size(212, 77);
             this.noTabsPanel.TabIndex = 3;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(19, 16);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(163, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "You don\'t have any open tabs!";
-            // 
             // btnNewSession
             // 
             this.btnNewSession.Image = global::MongoConsole.Properties.Resources._new;
@@ -176,6 +168,15 @@
             this.btnNewSession.TabIndex = 1;
             this.btnNewSession.Text = "New session...";
             this.btnNewSession.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(19, 16);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(163, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "You don\'t have any open tabs!";
             // 
             // mongoTabs
             // 

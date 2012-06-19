@@ -19,8 +19,12 @@ namespace MongoConsole.UI.Component
         public MongoTab( MongoSession session ) : base( session.ToString() )
         {
             Session = session;
-            ImageIndex = (int) Session.CurrentState;
+            ImageIndex = (int) Session.Status.CurrentState;
             Controls.Add( new MongoSessionPanel( this ) );
+            session.Status.StateChanged += ( ) => Invoke( (MethodInvoker) delegate
+            {
+                this.Text = session.ToString( );
+            } );
         }
     }
 }
