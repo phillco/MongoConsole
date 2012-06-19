@@ -19,5 +19,10 @@ namespace MongoConsole.Interop
             EndPoint = new IPEndPoint( address, port );
             HostName = hostName;
         }
+
+        public override string ToString( )
+        {
+            return EndPoint.ToString( );
+        }
     }
 }
