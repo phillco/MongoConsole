@@ -22,6 +22,9 @@ namespace MongoConsole.Interop
         //
         //=================================================================================
 
+        /// <summary>
+        /// The status of this session.
+        /// </summary>
         public ConnectionStatus Status { get; private set; }
 
         /// <summary>
@@ -54,12 +57,11 @@ namespace MongoConsole.Interop
 
         public MongoSession( string address )
         {
-            this.Status = new ConnectionStatus
+            Status = new ConnectionStatus
             {
                 OriginalConnectionString = address
             };
-
-            this.Cache = new AutoCache( this );
+            Cache = new AutoCache( this );
             Start( );
         }
 
@@ -83,12 +85,14 @@ namespace MongoConsole.Interop
                     return;
                 }
 
-                Client = ProcessWrapper.Start( "mongo.exe", Address.EndPoint.ToString( ) );
-                Client.Start( );
+                // Create the clients.
+                Client = ProcessWrapper.Start( "mongo.exe", Address.EndPoint.ToString( ) );                
                 Server = MongoServer.Create( new MongoServerSettings { Server = new MongoServerAddress( Address.HostName, Address.EndPoint.Port ) } );
-
+                Client.Start( );
+                
                 try
                 {
+                    // Attempt to verify the connection.
                     Server.Ping( );
                     Status.CurrentState = ConnectionStatus.State.CONNECTED;
                 }
@@ -100,12 +104,13 @@ namespace MongoConsole.Interop
         }
 
         public void Stop( )
-        {
-            Status.CurrentState = ConnectionStatus.State.DISCONNECTED;
+        {            
             if ( Server != null )
                 Server.Disconnect( );
             if ( Client != null )
                 Client.Stop( );
+
+            Status.Disconnect( );
         }
 
         public override string ToString( )

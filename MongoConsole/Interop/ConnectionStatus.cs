@@ -64,6 +64,11 @@ namespace MongoConsole.Interop
         //
         //=================================================================================
 
+        public void Disconnect( )
+        {
+            CurrentState = State.DISCONNECTED;
+        }
+
         public void Fail( string reason )
         {
             FailureReason = reason;

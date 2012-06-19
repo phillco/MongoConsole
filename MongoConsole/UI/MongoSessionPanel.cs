@@ -19,8 +19,6 @@ namespace MongoConsole.UI
     {
         public MongoSession Session { get { return ParentTab.Session; } }
 
-        public bool Initialized { get; private set; }
-
         private MongoTab ParentTab;
 
         public MongoSessionPanel( MongoTab parent )
@@ -40,6 +38,7 @@ namespace MongoConsole.UI
 
         public void UpdateState( )
         {
+            // Run this on the UI thread.
             if ( this.InvokeRequired )
             {
                 this.Invoke( (MethodInvoker) UpdateState );
@@ -49,42 +48,51 @@ namespace MongoConsole.UI
             switch ( Session.Status.CurrentState )
             {
                 case ConnectionStatus.State.CONNECTED:
-                    if ( !Initialized )
-                    {
-                        statusPanel.Hide( );
-                        Session.Client.InputReceived += AddToLog;
-                        Session.Cache.CacheUpdated += UpdateState;
-                        tbConsoleBox.Text = "Connected to " + Session.Address.HostName + Environment.NewLine;
-                        tbInput.Submitted += SubmitCommand;
-                        tbInput.Select( );                        
-                        Initialized = true;                        
-                    }
+                    OnConnected( );    
                     break;
 
                 case ConnectionStatus.State.CONNECTING:
-                    statusPanel.Show( );
                     lblStatusHeader.Text = "Connecting...";
-                    break;
+                    break;     
 
-                case ConnectionStatus.State.DISCONNECTED:
-                    break;
-
-                case ConnectionStatus.State.FAILED:
-                    statusPanel.Show( );
-                    pbConnecting.Hide( );
-                    lblStatusSubHeader.Show( );
+                case ConnectionStatus.State.FAILED:                                        
                     lblStatusHeader.Text = "Failure";
+
+                    // Show the subheader instead of the progress bar.
                     lblStatusSubHeader.Text = Session.Status.FailureReason;
+                    lblStatusSubHeader.Show( );                    
+                    pbConnecting.Hide( );                    
                     break;
             }
 
-            ParentTab.ImageIndex = (int) Session.Status.CurrentState;
+            // Show the "connecting..." info panel while connecting (or after a failure).
+            statusPanel.Visible = ( Session.Status.CurrentState == ConnectionStatus.State.CONNECTING || Session.Status.CurrentState == ConnectionStatus.State.FAILED );
+
+            // Enable input only while connected.
             tbInput.Enabled = cbSelectedDatabase.Enabled = tbConsoleBox.Enabled = ( Session.Status.CurrentState == ConnectionStatus.State.CONNECTED );
+
+            // Make the status icon in the tab represent the connection state.
+            ParentTab.ImageIndex = (int) Session.Status.CurrentState;
+
+            // Rebuild the dropdown of available databases.
             cbSelectedDatabase.Items.Clear( );
             cbSelectedDatabase.Items.AddRange( Session.Cache.Databases.ToArray( ) );
 
+            // Select the current database (if needed).
             if ( cbSelectedDatabase.Text != Session.Cache.CurrentDatabase )
                 cbSelectedDatabase.Text = Session.Cache.CurrentDatabase;
+        }
+
+        private void OnConnected( )
+        {
+            Session.Client.InputReceived += AddToLog;
+            Session.Cache.CacheUpdated += UpdateState;
+            tbInput.Submitted += SubmitCommand;
+
+            // Show some useful startup text.
+            tbConsoleBox.Text = "Connected to " + Session.Address.HostName + Environment.NewLine;            
+
+            tbInput.Select( );
         }
 
         private void AddToLog( string text )
