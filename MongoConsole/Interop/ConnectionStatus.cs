@@ -16,13 +16,14 @@ namespace MongoConsole.Interop
         public enum State { DISCONNECTED, CONNECTING, CONNECTED, FAILED }
 
         /// <summary>
-        /// The string the user specified to connect to.
+        /// The address (or whatever it is) the user told us to connect to.
         /// </summary>
         public string OriginalConnectionString { get; set; }
 
-        // public string StatusString { get; set; }
-
-        public string FailureString { get; set; }
+        /// <summary>
+        /// The reason the connection failed, supplied by MongoSession.
+        /// </summary>
+        public string FailureReason { get; private set; }
 
         public State CurrentState
         {
@@ -56,6 +57,18 @@ namespace MongoConsole.Interop
         //=================================================================================
 
         private State currentState = State.DISCONNECTED;
+
+        //=================================================================================
+        //
+        //  PUBLIC METHODS
+        //
+        //=================================================================================
+
+        public void Fail( string reason )
+        {
+            FailureReason = reason;
+            CurrentState = State.FAILED;
+        }
 
     }
 }

@@ -74,7 +74,7 @@ namespace MongoConsole.UI
                     pbConnecting.Hide( );
                     lblStatusSubHeader.Show( );
                     lblStatusHeader.Text = "Failure";
-                    lblStatusSubHeader.Text = Session.Status.FailureString;
+                    lblStatusSubHeader.Text = Session.Status.FailureReason;
                     break;
             }
 

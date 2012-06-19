@@ -79,8 +79,7 @@ namespace MongoConsole.Interop
                 this.Address = Util.Resolve( Status.OriginalConnectionString, 27017 );
                 if ( Address == null )
                 {
-                    Status.FailureString = "Could not resolve that address.";
-                    Status.CurrentState = ConnectionStatus.State.FAILED;
+                    Status.Fail( "Could not resolve that address." );
                     return;
                 }
 
@@ -95,8 +94,7 @@ namespace MongoConsole.Interop
                 }
                 catch ( SocketException )
                 {
-                    Status.FailureString = "Could not connect to the server. (Socket error)";
-                    Status.CurrentState = ConnectionStatus.State.FAILED;
+                    Status.Fail( "Could not connect to the server. (Socket error)" );
                 }
             } );
         }
