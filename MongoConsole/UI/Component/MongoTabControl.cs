@@ -60,6 +60,7 @@ namespace MongoConsole.UI.Component
         {
             InitializeComponent( );
             MouseClick += event_MouseClick;
+            MouseDoubleClick += new MouseEventHandler( event_MouseDoubleClick );
             mnuCloseTab.Click += ( target, e ) => CloseTab( contextTab );
             mnuDuplicateTab.Click += ( target, e ) => DuplicateTab( contextTab );
         }
@@ -72,7 +73,7 @@ namespace MongoConsole.UI.Component
 
         public void Add( MongoSession newSession )
         {
-            var tab = new MongoTab( newSession );
+            var tab = new MongoTab( newSession );            
             TabPages.Add( tab );
             SelectTab( tab );
 
@@ -102,7 +103,7 @@ namespace MongoConsole.UI.Component
 
         private void event_MouseClick( object sender, MouseEventArgs e )
         {
-            // Extract selected tab.
+            // Extract the clicked tab.
             MongoTab tab = GetSelectedTabIndex( e.Location );
             if ( tab == null )
                 return;
@@ -117,6 +118,14 @@ namespace MongoConsole.UI.Component
                     tabContextMenu.Show( this, e.Location );
                     break;
             }
+        }
+
+        private void event_MouseDoubleClick( object sender, MouseEventArgs e )
+        {
+            // Extract the clicked tab.
+            MongoTab tab = GetSelectedTabIndex( e.Location );
+            if ( tab != null )
+                DuplicateTab( tab );
         }
 
         /// <summary>
